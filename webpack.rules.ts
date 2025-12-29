@@ -8,11 +8,20 @@ export const rules: Required<ModuleOptions>['rules'] = [
     test: /native_modules[/\\].+\.node$/,
     use: 'node-loader',
   },
-  // NOTE: @vercel/webpack-asset-relocator-loader REMOVED
-  // This loader was injecting __dirname references into bundled code, causing runtime errors
-  // in the renderer process (which doesn't have __dirname by default in sandboxed contexts).
-  // Only needed if you're using native Node modules that need asset relocation.
-  // With nodeIntegration: true, we don't need this loader for basic React apps.
+  // @vercel/webpack-asset-relocator-loader: Required for native modules like better-sqlite3
+  // This loader relocates native .node binaries and injects code to find them at runtime.
+  // Previously caused __dirname errors in preload scripts, but works fine in renderer
+  // with nodeIntegration: true (which provides __dirname).
+  {
+    test: /[/\\]node_modules[/\\].+\.(m?js|node)$/,
+    parser: { amd: false },
+    use: {
+      loader: '@vercel/webpack-asset-relocator-loader',
+      options: {
+        outputAssetBase: 'native_modules',
+      },
+    },
+  },
   {
     test: /\.tsx?$/,
     exclude: /(node_modules|\.webpack)/,

@@ -21,4 +21,9 @@ export const rendererConfig: Configuration = {
     // This ensures webpack uses the correct defaults for an Electron renderer process
     // (which is a browser-like environment with optional Node.js integration).
     target: "electron-renderer",
+    // externals: Don't bundle these modules - load them at runtime instead.
+    // better-sqlite3 is a native module that needs to be loaded directly, not bundled.
+    externals: {
+        "better-sqlite3": "commonjs better-sqlite3",
+    },
 };
