@@ -29,13 +29,9 @@ function createEnumCheck(
     column: SQLiteColumn,
     validValues: readonly string[]
 ) {
-    return check(
-        name,
-        sql`${column} IN (${sql.join(
-            validValues.map((v) => sql`${v}`),
-            sql`, `
-        )})`
-    );
+    // SQLite doesn't allow parameters in CHECK constraints, so we need to inline the values
+    const valuesList = validValues.map((v) => `'${v}'`).join(", ");
+    return check(name, sql.raw(`${column.name} IN (${valuesList})`));
 }
 
 // Questions table

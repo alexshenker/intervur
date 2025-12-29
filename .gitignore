@@ -90,3 +90,11 @@ typings/
 
 # Electron-Forge
 out/
+
+# Database files
+intervur.db
+intervur.db-wal
+intervur.db-shm
+
+# Drizzle migrations
+drizzle/
