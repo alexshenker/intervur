@@ -1,5 +1,11 @@
-import { sql } from "drizzle-orm";
-import { check, integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { sql, SQL } from "drizzle-orm";
+import {
+    check,
+    integer,
+    sqliteTable,
+    text,
+    SQLiteColumn,
+} from "drizzle-orm/sqlite-core";
 import {
     categories,
     levels,
@@ -10,6 +16,27 @@ import {
 } from "./constants";
 
 // NOTE: Valid values for level and category are defined in ./constants.ts
+
+/**
+ * Creates a CHECK constraint for enum values
+ * @param name - Name of the constraint
+ * @param column - The column to check
+ * @param validValues - Array of valid enum values
+ * @returns CHECK constraint
+ */
+function createEnumCheck(
+    name: string,
+    column: SQLiteColumn,
+    validValues: readonly string[]
+) {
+    return check(
+        name,
+        sql`${column} IN (${sql.join(
+            validValues.map((v) => sql`${v}`),
+            sql`, `
+        )})`
+    );
+}
 
 // Questions table
 export const questions = sqliteTable(
@@ -26,20 +53,8 @@ export const questions = sqliteTable(
     },
     (table) => [
         // CHECK constraints to enforce valid enum values at database level
-        check(
-            "level_check",
-            sql`${table.level} IN (${sql.join(
-                levels.map((l) => sql`${l}`),
-                sql`, `
-            )})`
-        ),
-        check(
-            "category_check",
-            sql`${table.category} IN (${sql.join(
-                categories.map((c) => sql`${c}`),
-                sql`, `
-            )})`
-        ),
+        createEnumCheck("level_check", table.level, levels),
+        createEnumCheck("category_check", table.category, categories),
     ]
 );
 
@@ -66,13 +81,7 @@ export const tags = sqliteTable(
     },
     (table) => [
         // CHECK constraint to enforce valid tag values at database level
-        check(
-            "tag_name_check",
-            sql`${table.name} IN (${sql.join(
-                validTags.map((t) => sql`${t}`),
-                sql`, `
-            )})`
-        ),
+        createEnumCheck("tag_name_check", table.name, validTags),
     ]
 );
 
