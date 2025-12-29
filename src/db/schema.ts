@@ -1,10 +1,10 @@
-import { sql, SQL } from "drizzle-orm";
+import { sql } from "drizzle-orm";
 import {
     check,
     integer,
+    SQLiteColumn,
     sqliteTable,
     text,
-    SQLiteColumn,
 } from "drizzle-orm/sqlite-core";
 import {
     categories,
@@ -39,7 +39,7 @@ export const questions = sqliteTable(
     "questions",
     {
         id: integer("id").primaryKey({ autoIncrement: true }),
-        text: text("text").notNull(),
+        text: text("text").notNull().unique(), // Question text must be unique
         level: text("level", { enum: levels }).$type<Level>().notNull(),
         category: text("category", { enum: categories })
             .$type<Category>()
@@ -60,7 +60,7 @@ export const answers = sqliteTable("answers", {
     questionId: integer("question_id")
         .notNull()
         .references(() => questions.id, { onDelete: "cascade" }), // Delete answers when question is deleted
-    text: text("text").notNull(),
+    text: text("text").notNull().unique(),
     createdAt: text("created_at").default(sql`CURRENT_TIMESTAMP`),
     updatedAt: text("updated_at").default(sql`CURRENT_TIMESTAMP`),
 });
