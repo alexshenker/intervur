@@ -1,12 +1,20 @@
 import Database from "better-sqlite3";
+import { drizzle } from "drizzle-orm/better-sqlite3";
+import * as schema from "./schema";
 
 const DB_NAME = "intervur.db";
 
-const db = new Database(DB_NAME);
+// Create better-sqlite3 connection
+const sqlite = new Database(DB_NAME);
 
-db.pragma("foreign_keys = ON"); // Enable foreign key constraints because SQLite added foreign key support in 2009. To avoid breaking old databases and apps that were built before foreign keys existed, SQLite keeps them OFF by default.
+// Enable foreign key constraints
+// SQLite added foreign key support in 2009. To avoid breaking old databases and apps
+// that were built before foreign keys existed, SQLite keeps them OFF by default.
+sqlite.pragma("foreign_keys = ON");
 
-/* 
+/*
+  WAL (Write-Ahead Logging) mode:
+
   Default mode (without WAL):
   - Write operation → database file is LOCKED
   - No one can read while writing
@@ -28,6 +36,10 @@ db.pragma("foreign_keys = ON"); // Enable foreign key constraints because SQLite
   - Creates extra files (.db-wal, .db-shm)
   - Fine for local desktop apps, not great for network drives
 */
-db.pragma("journal_mode = WAL"); // Use Write-Ahead Logging for better concurrency
+sqlite.pragma("journal_mode = WAL");
 
-export default db;
+// Create Drizzle instance with schema for type-safe queries
+export const db = drizzle(sqlite, { schema });
+
+// Export the raw sqlite connection if needed for raw queries
+export { sqlite };
