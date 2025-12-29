@@ -12,6 +12,8 @@ export const mainConfig: Configuration = {
     module: {
         rules,
     },
+    // Call plugins() with 'main' to get main-process-specific plugin configuration
+    // (excludes renderer-only plugins like React Refresh)
     plugins: plugins("main"),
     resolve: {
         extensions: [".js", ".ts", ".jsx", ".tsx", ".css", ".json"],

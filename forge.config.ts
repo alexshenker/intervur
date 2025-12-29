@@ -32,9 +32,9 @@ const config: ForgeConfig = {
                         html: "./src/index.html",
                         js: "./src/renderer.tsx",
                         name: "main_window",
-                        preload: {
-                            js: "./src/preload.ts",
-                        },
+                        // Preload script removed: Not needed for basic React app.
+                        // Preload scripts were causing __dirname errors with webpack bundling.
+                        // Add back later if you need to safely expose Node APIs to renderer.
                     },
                 ],
             },
