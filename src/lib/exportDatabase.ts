@@ -13,6 +13,7 @@ export async function exportDatabase(): Promise<DatabaseExport> {
     const allQuestions = await db.select().from(questions);
 
     const result: DatabaseExport = {
+        exportedAt: new Date().toISOString(),
         questions: [],
     };
 
