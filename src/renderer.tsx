@@ -26,8 +26,20 @@
  * ```
  */
 
-import './index.css';
+import React from "react";
+import { createRoot } from "react-dom/client";
+import App from "./App";
+import "./index.css";
 
-console.log(
-  '👋 This message is being logged by "renderer.js", included via webpack',
+const rootElement = document.getElementById("root");
+
+if (!rootElement) {
+    throw new Error("Failed to find the root element");
+}
+
+const root = createRoot(rootElement);
+root.render(
+    <React.StrictMode>
+        <App />
+    </React.StrictMode>
 );
