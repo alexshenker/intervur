@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 // Level enum values for question difficulty
 export const levels = [
     "junior",
@@ -8,7 +10,9 @@ export const levels = [
     "senior-advanced",
 ] as const;
 
-export type Level = (typeof levels)[number];
+export const Level = z.enum(levels);
+
+export type Level = z.infer<typeof Level>;
 
 // Category enum values for question domains
 export const categories = [
@@ -24,6 +28,8 @@ export const categories = [
 ] as const;
 
 export type Category = (typeof categories)[number];
+
+export const Category = z.enum(categories);
 
 // Predefined tags for technologies and concepts
 export const validTags = [
@@ -68,3 +74,5 @@ export const validTags = [
 ] as const;
 
 export type ValidTag = (typeof validTags)[number];
+
+export const ValidTag = z.enum(validTags);
