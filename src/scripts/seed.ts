@@ -1,16 +1,12 @@
-import { readFileSync } from "fs";
-import { join } from "path";
 import { importDatabase } from "../lib/importDatabase";
+import { seedData } from "../seed/seed";
 
 async function seed() {
     try {
-        // Read the seed.json file from project root
-        const seedPath = join(process.cwd(), "seed.json");
-        const jsonString = readFileSync(seedPath, "utf-8");
-
         console.log("Starting database seed...");
 
-        // Import using the importDatabase function
+        // Convert seed data to JSON string and import
+        const jsonString = JSON.stringify(seedData);
         const result = await importDatabase(jsonString);
 
         if (result.success) {
@@ -21,7 +17,9 @@ async function seed() {
             console.error(`✗ Seed failed: ${result.error}`);
             if (result.validationErrors) {
                 console.error("Validation errors:");
-                result.validationErrors.forEach((err) => console.error(`  - ${err}`));
+                result.validationErrors.forEach((err) =>
+                    console.error(`  - ${err}`)
+                );
             }
             process.exit(1);
         }

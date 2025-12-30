@@ -100,4 +100,4 @@ intervur.db-shm
 drizzle/
 
 # Seed data
-seed.json
+src/seed/
