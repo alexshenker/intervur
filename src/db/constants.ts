@@ -35,14 +35,26 @@ export const Category = z.enum(categories);
 export const validTags = [
     // Frontend
     "react",
+    "hooks",
     "nextjs",
     "typescript",
     "javascript",
     "html",
     "css",
     "tailwind",
-    "vue",
-    "angular",
+    "redux",
+    "zustand",
+    "context-api",
+    "tanstack-query",
+    "virtual-dom",
+    "ssr",
+    "csr",
+    "lazy-loading",
+    "code-splitting",
+    "memoization",
+    "webpack",
+    "vite",
+    "turbopack",
 
     // Backend
     "nodejs",
@@ -50,27 +62,74 @@ export const validTags = [
     "nestjs",
     "graphql",
     "rest-api",
+    "websockets",
+    "serverless",
+    "grpc",
+    "message-queues",
 
-    // Databases
+    // Databases & ORMs
     "mongodb",
+    "mongoose",
     "sql",
     "postgresql",
     "mysql",
     "redis",
+    "prisma",
+    "typeorm",
+    "supabase",
+    "indexing",
 
-    // Infrastructure
+    // AWS Services
     "aws",
+    "s3",
+    "lambda",
+    "cognito",
+
+    // Infrastructure & DevOps
     "docker",
     "kubernetes",
     "ci-cd",
+    "git",
+    "cdn",
 
-    // Concepts
-    "auth",
-    "caching",
-    "performance",
+    // Testing
     "testing",
+    "jest",
+    "rtl",
+    "tdd",
+    "e2e",
+
+    // Security
     "security",
+    "auth",
+    "jwt",
+    "oauth",
+    "cors",
+
+    // Performance & Optimization
+    "performance",
+    "caching",
+    "tree-shaking",
+    "bundling",
+    "web-vitals",
+
+    // Architecture & Design
+    "api-design",
     "database-design",
+    "microservices",
+    "event-driven",
+    "system-design",
+
+    // Debugging & Monitoring
+    "debugging",
+    "monitoring",
+    "observability",
+    "error-tracking",
+    "logging",
+
+    // Concurrency & Distributed Systems
+    "race-conditions",
+    "concurrency",
 ] as const;
 
 export type ValidTag = (typeof validTags)[number];
