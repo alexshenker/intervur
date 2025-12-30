@@ -98,3 +98,6 @@ intervur.db-shm
 
 # Drizzle migrations
 drizzle/
+
+# Seed data
+seed.json
