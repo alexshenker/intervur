@@ -1,8 +1,3 @@
-import type {
-    Category as CategoryType,
-    Level as LevelType,
-    ValidTag as ValidTagType,
-} from "../db/constants";
 import { db } from "../db/database";
 import { linkTagToQuestion } from "../db/queries/tags";
 import { answers, questions } from "../db/schema";
@@ -71,8 +66,8 @@ export async function importDatabase(jsonString: string): Promise<{
                     .insert(questions)
                     .values({
                         text: questionData.text,
-                        level: questionData.level as LevelType,
-                        category: questionData.category as CategoryType,
+                        level: questionData.level,
+                        category: questionData.category,
                     })
                     .returning()
                     .catch((): [null] => [null]); // Catch unique constraint violation
@@ -101,7 +96,7 @@ export async function importDatabase(jsonString: string): Promise<{
                         await linkTagToQuestion(
                             tx,
                             insertedQuestion.id,
-                            tagName as ValidTagType
+                            tagName
                         );
                     }
                 }

@@ -6,8 +6,8 @@ const level = "level";
 
 const dbExportQuestion = z.object({
     text: z.string().min(1, "Question text cannot be empty"),
-    [typeof level]: Level,
-    [typeof category]: Category,
+    [level]: Level,
+    [category]: Category,
     tags: z.array(ValidTag),
     answers: z.array(
         z.object({
@@ -33,7 +33,7 @@ export type QuestionForCategory<C extends Category> = Omit<
  */
 export type QuestionForCategoryAndLevel<
     C extends Category,
-    L extends Level
+    L extends Level,
 > = Omit<QuestionForCategory<C>, typeof level> & {
     [level]: L;
 };

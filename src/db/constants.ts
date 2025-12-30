@@ -27,9 +27,9 @@ export const categories = [
     "security",
 ] as const;
 
-export type Category = (typeof categories)[number];
-
 export const Category = z.enum(categories);
+
+export type Category = z.infer<typeof Category>;
 
 
 // Predefined tags for technologies and concepts
@@ -133,6 +133,6 @@ export const validTags = [
     "concurrency",
 ] as const;
 
-export type ValidTag = (typeof validTags)[number];
-
 export const ValidTag = z.enum(validTags);
+
+export type ValidTag = z.infer<typeof ValidTag>;
