@@ -1,7 +1,322 @@
-import { Category, Level } from "../../../db";
+import { Category, Level, ValidTag } from "../../../db";
 import type { QuestionForCategoryAndLevel } from "../../../lib/types";
 
 export const juniorAdvanced: QuestionForCategoryAndLevel<
     typeof Category.enum.frontend,
     typeof Level.enum["junior-advanced"]
->[] = [];
+>[] = [
+    // JavaScript
+    {
+        text: "What are closures and how would you use them in practice?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.javascript, ValidTag.enum.closures, ValidTag.enum.scope],
+        answers: [],
+    },
+    {
+        text: "What is the this keyword and how does its binding work in different contexts?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.javascript, ValidTag.enum["this-keyword"]],
+        answers: [],
+    },
+    {
+        text: "What is destructuring and how do you use it with nested objects and arrays?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.javascript, ValidTag.enum.destructuring],
+        answers: [],
+    },
+    {
+        text: "What is the spread operator and how does it differ from rest parameters?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.javascript, ValidTag.enum["spread-operator"]],
+        answers: [],
+    },
+    {
+        text: "What are higher-order functions and how do map, filter, and reduce work?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.javascript],
+        answers: [],
+    },
+    {
+        text: "What is the difference between shallow copy and deep copy?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.javascript],
+        answers: [],
+    },
+    {
+        text: "What is the difference between call, apply, and bind?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.javascript, ValidTag.enum["this-keyword"]],
+        answers: [],
+    },
+    {
+        text: "What is the difference between Object.freeze() and Object.seal()?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.javascript],
+        answers: [],
+    },
+
+    // TypeScript
+    {
+        text: "What is TypeScript and what problems does it solve?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.typescript],
+        answers: [],
+    },
+    {
+        text: "What is the difference between type and interface?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.typescript, ValidTag.enum.interfaces, ValidTag.enum.types],
+        answers: [],
+    },
+    {
+        text: "What is the unknown type and how does it differ from any?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.typescript, ValidTag.enum.types],
+        answers: [],
+    },
+    {
+        text: "What is type assertion and when should you avoid it?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.typescript, ValidTag.enum.types],
+        answers: [],
+    },
+    {
+        text: "What is the difference between readonly and const?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.typescript],
+        answers: [],
+    },
+    {
+        text: "What is strict mode in TypeScript and what does it enable?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.typescript],
+        answers: [],
+    },
+    {
+        text: "What are enums and what are the differences between numeric, string, and const enums?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.typescript, ValidTag.enum.enums],
+        answers: [],
+    },
+
+    // HTML
+    {
+        text: "What are data attributes and how do you use them?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.html],
+        answers: [],
+    },
+    {
+        text: "What is the difference between <script>, <script async>, and <script defer>?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.html, ValidTag.enum.performance],
+        answers: [],
+    },
+    {
+        text: "What are meta tags and which ones are important for SEO?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.html, ValidTag.enum.seo],
+        answers: [],
+    },
+    {
+        text: "What are web components and shadow DOM?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.html, ValidTag.enum.javascript],
+        answers: [],
+    },
+    {
+        text: "What are forms and how do you handle form validation?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.html, ValidTag.enum.forms, ValidTag.enum.validation],
+        answers: [],
+    },
+    {
+        text: "What is the <template> tag and when would you use it?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.html],
+        answers: [],
+    },
+
+    // CSS
+    {
+        text: "What is specificity and how is it calculated?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.css],
+        answers: [],
+    },
+    {
+        text: "What is the difference between Flexbox and Grid and when would you use each?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.css, ValidTag.enum.flexbox, ValidTag.enum.grid],
+        answers: [],
+    },
+    {
+        text: "What are pseudo-classes and pseudo-elements?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.css],
+        answers: [],
+    },
+    {
+        text: "What is z-index and how does stacking context work?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.css],
+        answers: [],
+    },
+    {
+        text: "What are media queries and how do you implement responsive design?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.css, ValidTag.enum["media-queries"], ValidTag.enum["responsive-design"]],
+        answers: [],
+    },
+    {
+        text: "What are CSS transitions and animations?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.css, ValidTag.enum.animations, ValidTag.enum.transitions],
+        answers: [],
+    },
+
+    // CSS Modules and Tailwind
+    {
+        text: "What are CSS Modules and how do they prevent naming collisions?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.css, ValidTag.enum["css-modules"]],
+        answers: [],
+    },
+    {
+        text: "What is Tailwind CSS and what problems does it solve?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.tailwind, ValidTag.enum.css],
+        answers: [],
+    },
+    {
+        text: "How do you handle responsive design in Tailwind?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.tailwind, ValidTag.enum["responsive-design"]],
+        answers: [],
+    },
+    {
+        text: "What is the Tailwind configuration file and how do you customize it?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.tailwind],
+        answers: [],
+    },
+
+    // React
+    {
+        text: "What are the rules of hooks?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.react, ValidTag.enum.hooks],
+        answers: [],
+    },
+    {
+        text: "What is the component lifecycle and how do hooks map to lifecycle methods?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.react, ValidTag.enum.lifecycle, ValidTag.enum.hooks],
+        answers: [],
+    },
+    {
+        text: "What is prop drilling and why is it a problem?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.react],
+        answers: [],
+    },
+    {
+        text: "What are keys in React and why are they important?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.react],
+        answers: [],
+    },
+    {
+        text: "What is the difference between controlled and uncontrolled components?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.react, ValidTag.enum.forms],
+        answers: [],
+    },
+
+    // Git
+    {
+        text: "What is the difference between merge and rebase?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.git, ValidTag.enum.merge, ValidTag.enum.rebase],
+        answers: [],
+    },
+    {
+        text: "When would you use merge vs rebase?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.git, ValidTag.enum.merge, ValidTag.enum.rebase],
+        answers: [],
+    },
+    {
+        text: "What is git stash and how do you use it?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.git],
+        answers: [],
+    },
+    {
+        text: "What are Git branches and branching strategies?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.git, ValidTag.enum.branching],
+        answers: [],
+    },
+    {
+        text: "What is a pull request and what makes a good one?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.git, ValidTag.enum["pull-requests"]],
+        answers: [],
+    },
+    {
+        text: "What is the difference between git fetch and git pull?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.git],
+        answers: [],
+    },
+    {
+        text: "How do you write good commit messages?",
+        level: Level.enum["junior-advanced"],
+        category: Category.enum.frontend,
+        tags: [ValidTag.enum.git],
+        answers: [],
+    },
+];

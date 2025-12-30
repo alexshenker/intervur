@@ -22,7 +22,7 @@ const categories: Record<Category, Record<Level, DbExportQuestion[]>> = {
     security: securityQuestions,
 };
 
-const questions: DatabaseExport["questions"] = [
+export const questions: DatabaseExport["questions"] = [
     ...Object.values(categories).flatMap((levels) =>
         Object.values(levels).flat()
     ),
