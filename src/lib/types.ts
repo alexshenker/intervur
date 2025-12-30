@@ -9,11 +9,7 @@ const dbExportQuestion = z.object({
     [level]: Level,
     [category]: Category,
     tags: z.array(ValidTag),
-    answers: z.array(
-        z.object({
-            text: z.string().min(1, "Answer text cannot be empty"),
-        })
-    ),
+    answers: z.array(z.string().min(1, "Answer text cannot be empty")),
 });
 
 export type DbExportQuestion = z.infer<typeof dbExportQuestion>;

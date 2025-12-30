@@ -11,6 +11,7 @@ export const levels = [
 ] as const;
 
 export const Level = z.enum(levels);
+export const _Level = Level.enum;
 
 export type Level = z.infer<typeof Level>;
 
@@ -28,9 +29,9 @@ export const categories = [
 ] as const;
 
 export const Category = z.enum(categories);
+export const _Category = Category.enum;
 
 export type Category = z.infer<typeof Category>;
-
 
 // Predefined tags for technologies and concepts
 export const validTags = [
@@ -136,3 +137,4 @@ export const validTags = [
 export const ValidTag = z.enum(validTags);
 
 export type ValidTag = z.infer<typeof ValidTag>;
+export const _Tag = ValidTag.enum;

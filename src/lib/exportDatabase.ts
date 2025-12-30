@@ -1,5 +1,4 @@
 import { eq, inArray } from "drizzle-orm";
-import type { ValidTag } from "../db/constants";
 import { db } from "../db/database";
 import { answers, questions, questionTags, tags } from "../db/schema";
 import type { DatabaseExport } from "./types";
@@ -42,8 +41,8 @@ export async function exportDatabase(): Promise<DatabaseExport> {
             text: question.text,
             level: question.level,
             category: question.category,
-            tags: questionTagObjects.map((t) => t.name) as ValidTag[],
-            answers: questionAnswers.map((a) => ({ text: a.text })),
+            tags: questionTagObjects.map((t) => t.name),
+            answers: questionAnswers.map((a) => a.text),
         });
     }
 

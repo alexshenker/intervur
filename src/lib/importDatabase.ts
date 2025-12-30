@@ -85,7 +85,7 @@ export async function importDatabase(jsonString: string): Promise<{
                     await tx.insert(answers).values(
                         questionData.answers.map((answer) => ({
                             questionId: insertedQuestion.id,
-                            text: answer.text,
+                            text: answer,
                         }))
                     );
                 }
