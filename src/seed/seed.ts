@@ -1,5 +1,5 @@
-import type { Category } from "../db";
-import type { DatabaseExport } from "../lib/types";
+import type { Category, Level } from "../db";
+import type { DatabaseExport, DbExportQuestion } from "../lib/types";
 import { algorithmsQuestions } from "./categories/algorithms";
 import { backendQuestions } from "./categories/backend";
 import { behavioralQuestions } from "./categories/behavioral";
@@ -10,7 +10,7 @@ import { fullstackQuestions } from "./categories/fullstack";
 import { securityQuestions } from "./categories/security";
 import { systemDesignQuestions } from "./categories/system-design";
 
-const categories = {
+const categories: Record<Category, Record<Level, DbExportQuestion[]>> = {
     frontend: frontendQuestions,
     backend: backendQuestions,
     fullstack: fullstackQuestions,
@@ -20,7 +20,7 @@ const categories = {
     behavioral: behavioralQuestions,
     algorithms: algorithmsQuestions,
     security: securityQuestions,
-} satisfies Record<Category, typeof frontendQuestions>;
+};
 
 const questions: DatabaseExport["questions"] = [
     ...Object.values(categories).flatMap((levels) =>

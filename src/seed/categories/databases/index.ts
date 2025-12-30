@@ -1,3 +1,5 @@
+import { Category, Level } from "../../../db";
+import { QuestionForCategoryAndLevel } from "../../../lib/types";
 import { junior } from "./junior";
 import { juniorAdvanced } from "./junior-advanced";
 import { mid } from "./mid";
@@ -5,7 +7,10 @@ import { midAdvanced } from "./mid-advanced";
 import { senior } from "./senior";
 import { seniorAdvanced } from "./senior-advanced";
 
-export const databasesQuestions = {
+export const databasesQuestions: Record<
+    Level,
+    QuestionForCategoryAndLevel<typeof Category.enum.databases, Level>[]
+> = {
     junior,
     "junior-advanced": juniorAdvanced,
     mid,
