@@ -1,10 +1,13 @@
 import { z } from "zod";
 import { Category, Level, ValidTag } from "../db/constants";
 
+const category = "category";
+const level = "level";
+
 const dbExportQuestion = z.object({
     text: z.string().min(1, "Question text cannot be empty"),
-    level: Level,
-    category: Category,
+    [typeof level]: Level,
+    [typeof category]: Category,
     tags: z.array(ValidTag),
     answers: z.array(
         z.object({
@@ -14,6 +17,26 @@ const dbExportQuestion = z.object({
 });
 
 export type DbExportQuestion = z.infer<typeof dbExportQuestion>;
+
+/**
+ * Utility type to create a question constrained to a specific category
+ */
+export type QuestionForCategory<C extends Category> = Omit<
+    DbExportQuestion,
+    typeof category
+> & {
+    [category]: C;
+};
+
+/**
+ * Utility type to create a question constrained to a specific category and level
+ */
+export type QuestionForCategoryAndLevel<
+    C extends Category,
+    L extends Level
+> = Omit<QuestionForCategory<C>, typeof level> & {
+    [level]: L;
+};
 
 /**
  * Zod schema for validating database import/export JSON

@@ -31,6 +31,7 @@ export type Category = (typeof categories)[number];
 
 export const Category = z.enum(categories);
 
+
 // Predefined tags for technologies and concepts
 export const validTags = [
     // Frontend
