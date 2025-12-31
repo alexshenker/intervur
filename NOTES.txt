@@ -3,16 +3,22 @@ Question Search Implementation
 
 Approach: Hybrid semantic + fuzzy search
 
-Model: bge-large-en-v1.5 (via transformers.js)
-- ~335MB, runs locally in Electron
-- State-of-the-art for semantic retrieval
-- Target latency: <1000ms
+Model: all-MiniLM-L6-v2 (via transformers.js) - can upgrade to bge-large-en-v1.5
+- Runs in Electron main process (onnxruntime-node@1.14.0)
+- Renderer communicates via IPC
+- Local model files in /models folder
+
+Working setup:
+- onnxruntime-node@1.14.0 (newer versions broken)
+- @xenova/transformers@2.17.2
+- Model files downloaded manually to avoid CSP issues
 
 How it works:
-1. Pre-compute embeddings for all questions (store in app)
-2. On search: embed query -> cosine similarity -> top matches
-3. Fuse.js as secondary boost for character-level/typo matching
+1. App startup: load model in main process, generate embeddings for all questions
+2. On search: embed query via IPC -> cosine similarity -> combine with Fuse.js
+3. Score = 70% semantic + 30% fuzzy
+4. Display best match with percentage
 
-Route: /search
-- Empty state: nothing rendered
-- On submit: fuzzy + semantic search, show closest match
+To switch to bge-large-en-v1.5:
+1. Download model files to models/bge-large-en-v1.5/
+2. Update model name in src/main/embeddings.ts

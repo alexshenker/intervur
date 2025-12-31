@@ -18,4 +18,8 @@ export const mainConfig: Configuration = {
     resolve: {
         extensions: [".js", ".ts", ".jsx", ".tsx", ".css", ".json"],
     },
+    // Don't bundle native modules - load them at runtime
+    externals: {
+        "onnxruntime-node": "commonjs onnxruntime-node",
+    },
 };
