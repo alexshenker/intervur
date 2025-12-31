@@ -1,3 +1,8 @@
+import {
+    getAllCachedEmbeddings,
+    hashText,
+    saveCachedEmbedding,
+} from "@/db/queries/embeddingCache";
 import { generateEmbedding, loadModel } from "@/lib/embeddings";
 import type { DbExportQuestion } from "@/lib/types";
 import Fuse from "fuse.js";
@@ -41,6 +46,20 @@ export interface SearchResult {
 }
 
 /**
+ * Progress info passed to the onProgress callback during initialization.
+ */
+export interface InitProgress {
+    /** Current question index (1-based) */
+    current: number;
+    /** Total number of questions */
+    total: number;
+    /** Number of embeddings loaded from cache */
+    cached: number;
+    /** Number of embeddings generated fresh */
+    generated: number;
+}
+
+/**
  * Manages hybrid semantic + fuzzy search over questions.
  *
  * Usage:
@@ -59,27 +78,48 @@ class SearchService {
 
     /**
      * Initializes the search service with all questions.
-     * Generates embeddings for each question (slow on first run).
+     * Uses cached embeddings when available, generates and caches new ones.
      *
      * @param questions - All questions to make searchable
      * @param onProgress - Optional callback for loading progress
      */
     async initialize(
         questions: DbExportQuestion[],
-        onProgress?: (current: number, total: number) => void
+        onProgress?: (progress: InitProgress) => void
     ): Promise<void> {
         // Load the model in the main process first
         await loadModel();
 
-        // Generate embeddings for all questions
+        // Load all cached embeddings in one query
+        const cache = getAllCachedEmbeddings();
+
+        // Generate embeddings for all questions (using cache when available)
         this.questionsWithEmbeddings = [];
+        let cached = 0;
+        let generated = 0;
+
         for (let i = 0; i < questions.length; i++) {
-            const embedding = await generateEmbedding(questions[i].text);
+            const text = questions[i].text;
+            const textHash = hashText(text);
+
+            // Check cache first
+            let embedding = cache.get(textHash);
+
+            if (embedding) {
+                cached++;
+            } else {
+                // Generate new embedding and cache it
+                embedding = await generateEmbedding(text);
+                saveCachedEmbedding(text, embedding);
+                generated++;
+            }
+
             this.questionsWithEmbeddings.push({
                 question: questions[i],
                 embedding,
             });
-            onProgress?.(i + 1, questions.length);
+
+            onProgress?.({ current: i + 1, total: questions.length, cached, generated });
         }
 
         // Initialize Fuse.js for fuzzy matching

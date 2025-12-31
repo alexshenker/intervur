@@ -91,6 +91,20 @@ export const questionTags = sqliteTable("question_tags", {
         .references(() => tags.id, { onDelete: "cascade" }),
 });
 
+/**
+ * Cached embeddings for semantic search.
+ * Keyed by hash of question text to detect when regeneration is needed.
+ */
+export const embeddingCache = sqliteTable("embedding_cache", {
+    /** SHA-256 hash of the question text (primary key) */
+    textHash: text("text_hash").primaryKey(),
+    /** Serialized embedding vector as JSON array of floats */
+    embedding: text("embedding").notNull(),
+    /** Model identifier for cache invalidation on model change */
+    modelVersion: text("model_version").notNull(),
+    createdAt: text("created_at").default(sql`CURRENT_TIMESTAMP`),
+});
+
 // Type exports for TypeScript inference
 export type Question = typeof questions.$inferSelect;
 export type InsertQuestion = typeof questions.$inferInsert;
@@ -103,3 +117,6 @@ export type InsertTag = typeof tags.$inferInsert;
 
 export type QuestionTag = typeof questionTags.$inferSelect;
 export type InsertQuestionTag = typeof questionTags.$inferInsert;
+
+export type EmbeddingCache = typeof embeddingCache.$inferSelect;
+export type InsertEmbeddingCache = typeof embeddingCache.$inferInsert;

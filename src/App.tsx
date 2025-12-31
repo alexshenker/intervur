@@ -1,4 +1,4 @@
-import { searchService } from "@/lib/search";
+import { InitProgress, searchService } from "@/lib/search";
 import { HomePage } from "@/pages/HomePage";
 import { questions } from "@/seed/seed";
 import { useEffect, useState } from "react";
@@ -6,9 +6,11 @@ import { HashRouter, Route, Routes } from "react-router-dom";
 
 const App = () => {
     const [isLoading, setIsLoading] = useState(true);
-    const [loadingProgress, setLoadingProgress] = useState({
+    const [loadingProgress, setLoadingProgress] = useState<InitProgress>({
         current: 0,
         total: 0,
+        cached: 0,
+        generated: 0,
     });
 
     useEffect(() => {
@@ -22,8 +24,8 @@ const App = () => {
 
         // Initialize search service
         searchService
-            .initialize(questions, (current, total) => {
-                setLoadingProgress({ current, total });
+            .initialize(questions, (progress) => {
+                setLoadingProgress(progress);
             })
             .then(() => {
                 setIsLoading(false);
@@ -40,6 +42,11 @@ const App = () => {
                 </p>
                 <p className="text-sm text-muted-foreground mt-2">
                     {loadingProgress.current} / {loadingProgress.total}
+                    {loadingProgress.cached > 0 && (
+                        <span className="ml-2">
+                            ({loadingProgress.cached} cached)
+                        </span>
+                    )}
                 </p>
             </div>
         );
