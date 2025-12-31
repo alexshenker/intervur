@@ -1,5 +1,7 @@
 import { InitProgress, searchService } from "@/lib/search";
 import { HomePage } from "@/pages/HomePage";
+import { QuestionsPage } from "@/pages/QuestionsPage";
+import { Layout } from "@/components/Layout";
 import { questions } from "@/seed/seed";
 import { useEffect, useState } from "react";
 import { HashRouter, Route, Routes } from "react-router-dom";
@@ -54,9 +56,12 @@ const App = () => {
 
     return (
         <HashRouter>
-            <Routes>
-                <Route path="/" element={<HomePage />} />
-            </Routes>
+            <Layout>
+                <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/questions" element={<QuestionsPage />} />
+                </Routes>
+            </Layout>
         </HashRouter>
     );
 };
