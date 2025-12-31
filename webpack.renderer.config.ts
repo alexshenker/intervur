@@ -4,7 +4,11 @@ import { rules } from "./webpack.rules";
 
 rules.push({
     test: /\.css$/,
-    use: [{ loader: "style-loader" }, { loader: "css-loader" }],
+    use: [
+        { loader: "style-loader" },
+        { loader: "css-loader" },
+        { loader: "postcss-loader" },
+    ],
 });
 
 export const rendererConfig: Configuration = {
@@ -16,6 +20,9 @@ export const rendererConfig: Configuration = {
     plugins: plugins("renderer"),
     resolve: {
         extensions: [".js", ".ts", ".jsx", ".tsx", ".css"],
+        alias: {
+            "@": __dirname + "/src",
+        },
     },
     // target: Tells webpack this is an Electron renderer environment.
     // This ensures webpack uses the correct defaults for an Electron renderer process

@@ -1,4 +1,4 @@
-import { Category, Level } from "../../../db";
+import { Category, Level } from "../../../db/constants";
 import { QuestionForCategoryAndLevel } from "../../../lib/types";
 import { junior } from "./junior";
 import { juniorAdvanced } from "./junior-advanced";

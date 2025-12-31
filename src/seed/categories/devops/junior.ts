@@ -1,4 +1,4 @@
-import { Category, Level } from "../../../db";
+import { Category, Level } from "../../../db/constants";
 import type { QuestionForCategoryAndLevel } from "../../../lib/types";
 
 export const junior: QuestionForCategoryAndLevel<

@@ -1,4 +1,4 @@
-import type { Category, Level } from "../db";
+import type { Category, Level } from "../db/constants";
 import type { DatabaseExport, DbExportQuestion } from "../lib/types";
 import { algorithmsQuestions } from "./categories/algorithms";
 import { backendQuestions } from "./categories/backend";

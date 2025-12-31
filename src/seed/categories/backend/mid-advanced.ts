@@ -1,4 +1,4 @@
-import { Category, Level, ValidTag } from "../../../db";
+import { Category, Level, ValidTag } from "../../../db/constants";
 import type { QuestionForCategoryAndLevel } from "../../../lib/types";
 
 export const midAdvanced: QuestionForCategoryAndLevel<

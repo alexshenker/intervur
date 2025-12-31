@@ -1,0 +1,18 @@
+Question Search Implementation
+==============================
+
+Approach: Hybrid semantic + fuzzy search
+
+Model: bge-large-en-v1.5 (via transformers.js)
+- ~335MB, runs locally in Electron
+- State-of-the-art for semantic retrieval
+- Target latency: <1000ms
+
+How it works:
+1. Pre-compute embeddings for all questions (store in app)
+2. On search: embed query -> cosine similarity -> top matches
+3. Fuse.js as secondary boost for character-level/typo matching
+
+Route: /search
+- Empty state: nothing rendered
+- On submit: fuzzy + semantic search, show closest match
