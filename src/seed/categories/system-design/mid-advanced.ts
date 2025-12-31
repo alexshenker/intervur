@@ -43,17 +43,6 @@ export const midAdvanced: QuestionForCategoryAndLevel<
         ],
     },
 
-    // Advanced Concurrency
-    {
-        text: "What is the actor model?",
-        level: Level.enum["mid-advanced"],
-        category: Category.enum["system-design"],
-        tags: [ValidTag.enum.concurrency, ValidTag.enum["design-patterns"]],
-        answers: [
-            "The actor model is a concurrency pattern where 'actors' are the fundamental units of computation. Each actor is an independent entity that has its own private state and communicates with other actors exclusively through asynchronous message passing - they never share state directly. When an actor receives a message, it can do three things: create new actors, send messages to other actors, or change its own private state. The key benefit is that you avoid all the complexity of locks, mutexes, and shared memory synchronization because actors are isolated. This makes it much easier to reason about concurrent systems and avoid bugs like race conditions and deadlocks. It's particularly well-suited for distributed systems. Erlang and Elixir are built around this model, and frameworks like Akka bring it to the JVM. The downside is that it requires thinking differently about program structure, and debugging can be challenging since you're dealing with asynchronous message flows rather than direct function calls."
-        ],
-    },
-
     // Advanced Design Patterns
     {
         text: "What is the command pattern?",

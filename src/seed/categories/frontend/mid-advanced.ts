@@ -14,13 +14,6 @@ export const midAdvanced: QuestionForCategoryAndLevel<
         answers: ["WeakMap and WeakSet are collections that hold weak references to their keys or values, which means they don't prevent garbage collection. The key difference from regular Map and Set is that WeakMap keys must be objects, and if there are no other references to that object, it can be garbage collected. I typically use WeakMap for storing metadata about objects without preventing those objects from being cleaned up - like caching DOM nodes or storing private data for class instances. WeakSet is useful for marking objects, like tracking which objects have been processed. The main limitation is you can't iterate over them or check their size, since the contents can change at any time due to garbage collection."],
     },
     {
-        text: "What is tail call optimization?",
-        level: Level.enum["mid-advanced"],
-        category: Category.enum.frontend,
-        tags: [ValidTag.enum.javascript, ValidTag.enum.performance],
-        answers: ["Tail call optimization is a performance feature where the JavaScript engine can reuse stack frames for function calls that are in tail position - meaning the last thing a function does is return another function call. This prevents stack overflow errors in recursive functions by keeping the call stack size constant. For example, if you have a recursive function where the final operation is calling itself, the engine can optimize away the stack frame. However, it's worth noting that TCO is part of ES6 spec but isn't widely implemented - Safari supports it but Chrome and Firefox don't. In practice, I usually convert deeply recursive functions to iterative ones or use trampolining instead of relying on TCO."],
-    },
-    {
         text: "What is the Temporal Dead Zone?",
         level: Level.enum["mid-advanced"],
         category: Category.enum.frontend,
@@ -145,14 +138,6 @@ export const midAdvanced: QuestionForCategoryAndLevel<
         tags: [ValidTag.enum.react, ValidTag.enum.hooks, ValidTag.enum["concurrent-mode"]],
         answers: ["useTransition is a React 18 hook that lets you mark certain state updates as non-urgent transitions, allowing React to keep the UI responsive by interrupting those updates if needed. It returns an isPending flag and a startTransition function. When you wrap state updates in startTransition, React knows it can interrupt them to handle more urgent updates like user input. This is perfect for situations where you're updating something expensive in response to user input, like filtering a large list or changing tabs. The isPending flag lets you show loading states during the transition. The main difference from useDeferredValue is that useTransition marks the state update itself as low priority, while useDeferredValue defers consuming a value. I use it whenever I have state updates that cause expensive renders and I want to keep the UI feeling snappy."],
     },
-    {
-        text: "What is useSyncExternalStore and when do you need it?",
-        level: Level.enum["mid-advanced"],
-        category: Category.enum.frontend,
-        tags: [ValidTag.enum.react, ValidTag.enum.hooks],
-        answers: ["useSyncExternalStore is a hook for safely subscribing to external data sources in a way that's compatible with concurrent rendering. It solves tearing issues where different parts of the UI might see inconsistent data during concurrent renders. You provide a subscribe function and a getSnapshot function that returns the current value. This is mainly needed when integrating with external stores like Redux, Zustand, or browser APIs like window.matchMedia. Most developers won't need to use this directly because state management libraries handle it internally. However, if you're building a custom store or subscribing to external data sources, this is the safe way to do it. Before React 18, you could get away with simpler subscription patterns, but concurrent rendering requires this approach to prevent visual inconsistencies."],
-    },
-
     // React Advanced
     {
         text: "What is React's reconciliation algorithm and how does it decide what to re-render?",
@@ -390,13 +375,6 @@ export const midAdvanced: QuestionForCategoryAndLevel<
         category: Category.enum.frontend,
         tags: [ValidTag.enum.nextjs, ValidTag.enum["pages-router"], ValidTag.enum.ssg],
         answers: ["These options in getStaticPaths determine how Next.js handles paths not returned at build time. fallback: false returns 404 for any path not in the paths array - use this when you have all possible paths at build time. fallback: true immediately serves a fallback page while generating the real page in the background, then swaps it in - you need to handle the loading state with router.isFallback. fallback: 'blocking' waits to serve the page until it's fully generated, like getServerSideProps but only runs once then caches - no fallback UI needed. I use fallback: false for small, finite sets like a few marketing pages, fallback: true for large sets where I want instant navigation with a loading state, and fallback: 'blocking' when I can't show a fallback UI or when SEO is critical since the crawler gets the full page immediately."],
-    },
-    {
-        text: "What is getInitialProps and why is it generally discouraged?",
-        level: Level.enum["mid-advanced"],
-        category: Category.enum.frontend,
-        tags: [ValidTag.enum.nextjs, ValidTag.enum["pages-router"]],
-        answers: ["getInitialProps is the legacy data fetching method in Next.js that runs on both server and client side. It's discouraged because it disables automatic static optimization for the entire app - even pages without getInitialProps become server-rendered. It also has a confusing execution model where you need to check if you're on the server or client. getStaticProps and getServerSideProps are better because they're explicit about where they run, enable automatic static optimization, and have better TypeScript support. getInitialProps is only needed for older Next.js apps or when you specifically need data fetching in _app.js, though even that's often better handled differently now. If I inherit code with getInitialProps, I migrate it to getStaticProps for static pages or getServerSideProps for dynamic ones. The only time I'd use it in new code is for maintaining legacy patterns in very old Next.js versions."],
     },
     {
         text: "How do you handle authentication in the Pages Router?",

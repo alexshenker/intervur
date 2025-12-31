@@ -150,14 +150,6 @@ export const juniorAdvanced: QuestionForCategoryAndLevel<
         tags: [ValidTag.enum.html, ValidTag.enum.forms, ValidTag.enum.validation],
         answers: ["Forms are HTML structures for collecting user input, using the form element with various input types like text, email, checkbox, etc. For validation, there are two approaches: HTML5 built-in validation using attributes like required, pattern, min, max, which is easy and works without JavaScript, and custom JavaScript validation for more complex rules. HTML5 validation is great for basic checks and provides good user experience with browser-native error messages. For anything more sophisticated, I use JavaScript to validate on both input and submit events, showing custom error messages. The key is to always validate on the server too, since client-side validation can be bypassed. In React, I often use libraries like react-hook-form or Formik which handle validation, state management, and error display. Good form validation should be immediate enough to help users but not annoying, and error messages should be clear about how to fix the problem."],
     },
-    {
-        text: "What is the <template> tag and when would you use it?",
-        level: Level.enum["junior-advanced"],
-        category: Category.enum.frontend,
-        tags: [ValidTag.enum.html],
-        answers: ["The template tag holds HTML content that isn't rendered when the page loads but can be cloned and inserted into the DOM with JavaScript. The content inside is parsed but completely inert - scripts don't run, images don't load, nothing is displayed. You access it through JavaScript, clone the content, and then insert it where you need it. It's useful for client-side templating, especially for repeated structures like list items, cards, or table rows that you need to create dynamically. Before template tags, people used script tags with a custom type or hidden divs, which was hacky. Templates are cleaner and more performant. I mostly see them used in vanilla JavaScript projects or web components. In React or other frameworks, you typically use JSX or the framework's templating instead, but for framework-free projects, template tags are really handy."],
-    },
-
     // CSS
     {
         text: "What is specificity and how is it calculated?",

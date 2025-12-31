@@ -157,14 +157,6 @@ export const mid: QuestionForCategoryAndLevel<
         tags: [ValidTag.enum.tailwind],
         answers: ["The @apply directive lets you extract Tailwind utility classes into custom CSS classes. You write something like '.btn { @apply px-4 py-2 bg-blue-500; }' to create reusable class names. While this seems convenient, Tailwind's docs actually recommend avoiding it in most cases. The problem is you lose the benefits of utility-first CSS - you're back to naming things and maintaining CSS files. It also increases bundle size since you're duplicating utilities. The better approach is component extraction at the template level with React components or partials. I only use @apply for very specific cases, like third-party component styling where I can't modify the markup, or when I absolutely need a semantic class name for a design system. For everything else, composition with components is cleaner."],
     },
-    {
-        text: "How does Tailwind's JIT compiler work?",
-        level: Level.enum.mid,
-        category: Category.enum.frontend,
-        tags: [ValidTag.enum.tailwind],
-        answers: ["The JIT (Just-In-Time) compiler generates styles on-demand as you author your templates, rather than generating everything upfront and purging unused styles. It scans your files for class names and generates only the CSS you're actually using. This means instant build times, significantly smaller development CSS files, and the ability to use arbitrary values like 'top-[117px]' without configuration. It also enables all variants out of the box without increasing file size. The performance improvement is substantial - development builds are now as small as production builds. The way it works is through a content scanning system that watches your template files and generates CSS as it finds classes. Since JIT became the default, I've found development much faster and I use arbitrary values regularly for one-off tweaks."],
-    },
-
     // React Core
     {
         text: "What is the React Virtual DOM and why is it important?",
@@ -462,13 +454,6 @@ export const mid: QuestionForCategoryAndLevel<
         category: Category.enum.frontend,
         tags: [ValidTag.enum["react-native"], ValidTag.enum.react],
         answers: ["React Native is a framework for building native mobile apps using React. The core difference is the rendering target - React renders to the DOM, while React Native renders to native platform components. Instead of div and span, you use View and Text. Instead of CSS, you use StyleSheet which is similar but not identical. The JavaScript runs in a JS engine, but the UI is actual native components, not a WebView. This gives you native performance and feel. You write mostly the same React code with hooks and components, but the platform APIs and components are different. The development experience is similar - hot reloading, component-based architecture. You can share business logic between web and mobile but not UI code. It's a great choice when you want native apps without learning Swift or Kotlin."],
-    },
-    {
-        text: "What is the bridge in React Native and how does it work?",
-        level: Level.enum.mid,
-        category: Category.enum.frontend,
-        tags: [ValidTag.enum["react-native"]],
-        answers: ["The bridge is the communication layer between JavaScript and native code in React Native. Your JavaScript runs in a separate thread from the UI, and they communicate by passing serialized JSON messages over the bridge. When you update state, React Native serializes the changes, sends them over the bridge, and the native side updates the UI. This asynchronous communication is a potential performance bottleneck - too many messages or large payloads can cause slowdowns. That's why you minimize bridge traffic and avoid rapid updates. The new architecture with JSI (JavaScript Interface) is replacing the bridge with direct JavaScript-to-native calls, which is much faster. But in current React Native, understanding the bridge helps you optimize performance by reducing unnecessary communication."],
     },
     {
         text: "What is the difference between React Native and Expo?",

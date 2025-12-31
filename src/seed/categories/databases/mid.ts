@@ -256,13 +256,6 @@ export const mid: QuestionForCategoryAndLevel<
         answers: ["Mongoose middleware are functions that run at specific points in a document's lifecycle. Pre hooks run before an operation like save, validate, or remove, while post hooks run after. For example, a pre-save hook might hash a password before saving a user, or validate custom business rules. A post-save hook might log the operation or trigger notifications. You can also have hooks for queries like pre-find to add default filters. They're useful for cross-cutting concerns like auditing, validation, or maintaining computed fields. The key is they're tied to the model, so the logic runs regardless of where in your application you save a document. I use them for operations that should always happen, like timestamps or password hashing."],
     },
     {
-        text: "What are virtuals in Mongoose?",
-        level: Level.enum.mid,
-        category: Category.enum.databases,
-        tags: [ValidTag.enum.mongoose],
-        answers: ["Virtuals are document properties that aren't stored in MongoDB but are computed on the fly. You define getters and optionally setters for them. For example, if you store firstName and lastName separately, you might create a fullName virtual that concatenates them. Or you might have a virtual that formats a date or calculates age from a birthdate. Virtuals appear in the document when you access them but don't take up database space. They're useful for derived data that doesn't need to be persisted. You can also populate virtuals, which lets you define virtual properties that perform queries, essentially creating dynamic relationships. They keep your stored data lean while providing convenient computed properties in your application code."],
-    },
-    {
         text: "How do you handle transactions in MongoDB?",
         level: Level.enum.mid,
         category: Category.enum.databases,
@@ -326,13 +319,6 @@ export const mid: QuestionForCategoryAndLevel<
         category: Category.enum.databases,
         tags: [ValidTag.enum.prisma],
         answers: ["Relations in Prisma define relationships between models using relation fields. You can have one-to-one, one-to-many, and many-to-many relationships. For example, a User can have many Posts, and each Post belongs to a User. You define this with relation fields and the relation decorator. To query relations, you use the include or select options. Include fetches related data, like including a user's posts when querying users. This generates an efficient JOIN or multiple queries. You can also use nested selects to precisely choose which fields to return. Prisma handles the SQL complexity - you just specify what data you want. The relations are fully type-safe, so you can't include a relationship that doesn't exist. It's much cleaner than manually joining tables."],
-    },
-    {
-        text: "What is Prisma Studio?",
-        level: Level.enum.mid,
-        category: Category.enum.databases,
-        tags: [ValidTag.enum.prisma],
-        answers: ["Prisma Studio is a visual database browser that comes with Prisma. You run it with prisma studio and it opens a web interface where you can view, create, update, and delete records in your database. It understands your Prisma schema, so it shows relationships and field types correctly. You can filter, sort, and paginate through your data visually. It's incredibly useful during development for inspecting data, seeding test data, or debugging issues without writing SQL queries or using a generic database tool. It works with all databases Prisma supports and provides a consistent interface regardless of the underlying database. While it's not meant for production use, it's a fantastic development tool that speeds up common database tasks."],
     },
     {
         text: "How do you handle raw SQL queries in Prisma?",
@@ -414,20 +400,6 @@ export const mid: QuestionForCategoryAndLevel<
         answers: ["Supabase Storage is an S3-compatible object storage service for files and media. You create buckets, which can be public or private, then upload files using the JavaScript client. For uploads, you call the upload method with the file and path. Supabase returns a URL you can use to access the file. You can set up RLS policies on storage buckets just like database tables, controlling who can upload, view, or delete files. For example, users might only be able to upload to their own folder. Supabase handles things like image transformations on the fly, so you can request different sizes of an image. It's useful for user avatars, document uploads, or any file storage needs. The integration with the rest of Supabase makes it seamless compared to managing S3 separately."],
     },
     {
-        text: "How do you call Supabase Edge Functions?",
-        level: Level.enum.mid,
-        category: Category.enum.databases,
-        tags: [ValidTag.enum.supabase],
-        answers: ["Supabase Edge Functions are serverless functions that run on Deno Deploy at the edge, close to your users. You write them in TypeScript using Deno, define them in your project, and deploy them with the Supabase CLI. To call them, you use the Supabase client's functions.invoke method with the function name and any parameters. The function can access the database, external APIs, or perform any server-side logic. They're useful for operations you can't or shouldn't do client-side, like processing payments, sending emails, or complex calculations. The benefit over database functions is they can call external services and run arbitrary code. They run on the edge for low latency. I use them for API integrations, webhooks, scheduled jobs, or sensitive operations that need to happen on the server."],
-    },
-    {
-        text: "What are Supabase database functions?",
-        level: Level.enum.mid,
-        category: Category.enum.databases,
-        tags: [ValidTag.enum.supabase],
-        answers: ["Supabase database functions are PostgreSQL functions written in SQL or PL/pgSQL that run directly in the database. You define them in your migrations or through the SQL editor. They can perform complex queries, data transformations, or business logic at the database level. You call them from your application using the Supabase client's RPC method. They're more performant than edge functions for data-heavy operations because they run where the data lives. They can also be used in triggers to respond to database events automatically. I use database functions for complex queries that would be cumbersome to express with the query builder, aggregations, or operations that need to be atomic and performant. They're traditional stored procedures but accessible through Supabase's modern API."],
-    },
-    {
         text: "How do you handle migrations in Supabase?",
         level: Level.enum.mid,
         category: Category.enum.databases,
@@ -486,13 +458,6 @@ export const mid: QuestionForCategoryAndLevel<
         answers: ["Redis Cluster is Redis's native sharding solution that distributes data across multiple Redis nodes. It uses hash slots - there are 16,384 slots and each key is hashed to a slot. Each master node owns a range of slots. When you set a key, Redis determines which slot and therefore which node it belongs to. Clients need to be cluster-aware to route commands to the correct node. Cluster also provides automatic failover - if a master fails, one of its replicas is promoted. I'd use Redis Cluster when a single Redis instance can't hold all your data or handle the load. The tradeoff is increased operational complexity and some limitations - you can't do multi-key operations that span nodes. For most use cases, a single Redis with replicas is sufficient."],
     },
     {
-        text: "What is Redis Sentinel?",
-        level: Level.enum.mid,
-        category: Category.enum.databases,
-        tags: [ValidTag.enum.redis, ValidTag.enum["high-availability"]],
-        answers: ["Redis Sentinel provides high availability for Redis without using Cluster. It monitors your Redis master and replica instances, detects failures, and performs automatic failover if the master goes down. Sentinel nodes run alongside your Redis instances, constantly checking their health. If the master fails and enough Sentinels agree, they promote a replica to master and reconfigure other replicas to follow the new master. Clients connect to Sentinel to discover the current master. I use Sentinel when I need automatic failover but don't need sharding. It's simpler than Cluster for high availability. You typically run at least three Sentinel instances to avoid split-brain scenarios. Sentinel is about reliability and uptime, not scaling beyond a single master's capacity."],
-    },
-    {
         text: "How do you handle cache invalidation with Redis?",
         level: Level.enum.mid,
         category: Category.enum.databases,
@@ -507,25 +472,11 @@ export const mid: QuestionForCategoryAndLevel<
         answers: ["Redis persistence saves in-memory data to disk so it survives restarts. RDB creates point-in-time snapshots at intervals - it's compact and fast for backups but you can lose data between snapshots if Redis crashes. AOF logs every write operation, so you can replay them to rebuild state. It's more durable but creates larger files and is slower. You can use both together - RDB for backups and faster restarts, AOF for durability. For pure caching, I often disable persistence since cached data can be regenerated. For sessions or other important data, I use AOF with fsync every second, balancing durability and performance. Understanding the tradeoff between durability and performance is key - more frequent persistence is safer but slower."],
     },
     {
-        text: "What are Redis Streams?",
-        level: Level.enum.mid,
-        category: Category.enum.databases,
-        tags: [ValidTag.enum.redis],
-        answers: ["Redis Streams is a data structure for append-only logs, similar to Kafka but simpler. You append messages to a stream and consumers read them. Unlike pub/sub, messages are persisted and consumers can read at their own pace. Streams support consumer groups where multiple consumers share the work of processing a stream. Each message is acknowledged, and unprocessed messages can be reclaimed. I use Streams for reliable message queues, event sourcing, or activity feeds. For example, tracking user actions as events in a stream. Streams are more reliable than pub/sub because messages aren't lost, and more lightweight than running Kafka for smaller-scale messaging needs. They bridge the gap between Redis pub/sub and a full message broker."],
-    },
-    {
         text: "How do you handle session storage with Redis?",
         level: Level.enum.mid,
         category: Category.enum.databases,
         tags: [ValidTag.enum.redis, ValidTag.enum["session-management"]],
         answers: ["Redis is perfect for session storage in distributed applications. You store session data as a hash or JSON string with the session ID as the key. Set a TTL matching your session timeout, and Redis automatically cleans up expired sessions. When a request comes in, look up the session by ID, extend the TTL to keep active sessions alive, and update it as needed. This allows any server to access any user's session, enabling stateless application servers and easy horizontal scaling. I use Redis hashes to store session fields efficiently, and set TTLs to automatically expire inactive sessions. It's much better than in-memory sessions on individual servers because it scales horizontally and survives server restarts. The fast access time keeps requests snappy."],
-    },
-    {
-        text: "What is Redis Lua scripting and when would you use it?",
-        level: Level.enum.mid,
-        category: Category.enum.databases,
-        tags: [ValidTag.enum.redis],
-        answers: ["Redis Lua scripting lets you execute Lua scripts atomically on the Redis server. The script runs as a single atomic operation, seeing a consistent view of data without interference from other clients. You'd use it for complex operations that need multiple Redis commands to execute atomically, like checking a value and conditionally updating it. For example, implementing a distributed lock or a rate limiter requires reading and writing atomically. Scripts are also faster than multiple round trips from your application. You load scripts with SCRIPT LOAD and execute with EVALSHA. The limitation is scripts block Redis, so keep them fast. I use Lua scripts when I need atomicity beyond what transactions provide or when complex logic is better executed on the server than in application code."],
     },
     {
         text: "What are Redis TTL and expiration strategies?",
@@ -628,13 +579,6 @@ export const mid: QuestionForCategoryAndLevel<
         category: Category.enum.databases,
         tags: [ValidTag.enum.cdn, ValidTag.enum.caching],
         answers: ["CDN caching is configured through HTTP headers from your origin and sometimes CDN-specific rules. The Cache-Control header is primary - it tells the CDN how long to cache and under what conditions. You might set max-age=31536000 for static assets to cache for a year, or no-cache for dynamic content. Many CDNs also let you override or supplement these headers with rules in their dashboard. You can configure cache behavior by path, like caching everything under /static/ for a long time. You might cache based on query strings or cookies. I typically set long cache times for versioned static assets, moderate times for images and fonts, and short or no caching for HTML and API responses. Testing and monitoring cache hit rates helps optimize the rules."],
-    },
-    {
-        text: "What is origin shielding?",
-        level: Level.enum.mid,
-        category: Category.enum.databases,
-        tags: [ValidTag.enum.cdn],
-        answers: ["Origin shielding is an additional CDN layer that sits between edge locations and your origin server. Instead of edge locations fetching directly from your origin when they miss cache, they fetch from the shield, which then fetches from origin if needed. This reduces load on your origin because if 100 edge locations miss cache simultaneously, only the shield hits your origin once. The shield acts as a centralized cache for all edge locations. It's especially useful if you have many edge locations or your origin can't handle requests from all of them. The tradeoff is slightly higher latency on cache misses since there's an extra hop. I'd use origin shielding for origins that can't scale to handle traffic from all edge locations, or when origin bandwidth is expensive."],
     },
     {
         text: "What are the tradeoffs between different CDN providers?",

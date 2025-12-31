@@ -16,25 +16,11 @@ export const midAdvanced: QuestionForCategoryAndLevel<
 
     // GraphQL Advanced
     {
-        text: "What is schema stitching vs federation?",
-        level: Level.enum["mid-advanced"],
-        category: Category.enum.backend,
-        tags: [ValidTag.enum.graphql],
-        answers: ["Both are approaches to combining multiple GraphQL schemas into a single unified API, but they work quite differently. Schema stitching is the older approach where you have a gateway that manually merges schemas and delegates queries to the appropriate services. It's flexible but requires more manual configuration and the gateway needs to know a lot about how the schemas relate. Federation, on the other hand, was developed by Apollo and takes a more declarative approach. Each service defines its own schema and can extend types from other services using special directives like @key and @external. The gateway discovers the schemas automatically and knows how to resolve queries across services. Federation is generally more scalable and maintainable for larger systems because the relationship logic lives in the services themselves rather than in the gateway."],
-    },
-    {
         text: "How do you handle file uploads in GraphQL?",
         level: Level.enum["mid-advanced"],
         category: Category.enum.backend,
         tags: [ValidTag.enum.graphql],
         answers: ["File uploads in GraphQL are typically handled using the GraphQL multipart request specification. The most common approach is to use a library like graphql-upload on the server side. You define an Upload scalar type in your schema, then in your mutation you can accept that type as an argument. On the client side, you send a multipart form request where the file is one part and the GraphQL operation is another. The server then maps the file to the appropriate resolver argument. An alternative approach some teams use is to separate file uploads from GraphQL entirely - you upload the file to a separate endpoint or directly to S3, get back a URL or ID, and then pass that through your GraphQL mutation. This can be cleaner for very large files and gives you more control over the upload process."],
-    },
-    {
-        text: "What are persisted queries and why would you use them?",
-        level: Level.enum["mid-advanced"],
-        category: Category.enum.backend,
-        tags: [ValidTag.enum.graphql, ValidTag.enum.performance],
-        answers: ["Persisted queries are a technique where instead of sending the full GraphQL query string with each request, you send a hash or ID that maps to a pre-registered query on the server. There are several benefits to this approach. First, it significantly reduces bandwidth since you're sending just a small ID instead of potentially large query strings, which is especially valuable for mobile clients. Second, it improves security by creating a whitelist of allowed operations - the server only accepts queries it knows about, preventing arbitrary queries from being executed. Third, it can improve performance since the server can skip the parsing and validation steps. The way it typically works is during your build process, you extract all queries from your application, register them with the server with their hashes, and then at runtime your client sends the hash instead of the full query. Apollo has good support for this with their automatic persisted queries feature."],
     },
     {
         text: "How do you handle caching in GraphQL?",
@@ -81,32 +67,11 @@ export const midAdvanced: QuestionForCategoryAndLevel<
         answers: ["gRPC has a well-defined error model with a set of standard status codes similar to HTTP status codes, but more specific to RPC semantics. When an error occurs, the server returns a status code like INVALID_ARGUMENT, NOT_FOUND, PERMISSION_DENIED, or INTERNAL, along with an optional error message and metadata. On the client side, you catch these errors and check the status code to handle different error cases appropriately. What's nice is that error handling is consistent across all languages that gRPC supports. You can also use the richer error details mechanism where you attach structured error information using Google's error details protos - things like BadRequest, RetryInfo, or custom error details. This gives clients more context about what went wrong and how to fix it. For streaming calls, errors can be sent at any point in the stream, and the client needs to handle both per-message errors and stream-level errors."],
     },
     {
-        text: "What is gRPC-web and when do you need it?",
-        level: Level.enum["mid-advanced"],
-        category: Category.enum.backend,
-        tags: [ValidTag.enum.grpc],
-        answers: ["gRPC-web is a JavaScript implementation of gRPC that allows browser clients to communicate with gRPC services. The challenge is that browsers can't make raw gRPC calls because they don't have low-level control over HTTP/2 frames that standard gRPC requires. gRPC-web solves this by providing a compatibility layer - it uses HTTP/1.1 or HTTP/2 in a way that browsers can handle, and you need a proxy like Envoy in front of your gRPC server to translate between gRPC-web and standard gRPC. You need gRPC-web when you want your web frontend to directly call your gRPC backend services. It gives you type safety from your proto definitions all the way to the browser, and you can share the same service definitions between your backend services and frontend. The tradeoff is the added complexity of the proxy and some limitations - for example, bidirectional streaming isn't fully supported in all browsers. For many web apps, REST or GraphQL might be simpler, but gRPC-web is great when you're already invested in gRPC and want consistency."],
-    },
-    {
         text: "How do you handle authentication in gRPC?",
         level: Level.enum["mid-advanced"],
         category: Category.enum.backend,
         tags: [ValidTag.enum.grpc, ValidTag.enum.auth],
         answers: ["Authentication in gRPC is typically handled through metadata, which is similar to HTTP headers. The most common approach is to use SSL/TLS for the transport layer security, and then pass authentication tokens in the metadata. For example, you might send a JWT or API key in the authorization metadata field with each request. gRPC has built-in support for different authentication mechanisms through its credentials system. You can use channel credentials for transport-level security like SSL, and call credentials for request-level authentication like tokens. On the server side, you typically implement an interceptor that extracts and validates the credentials from the metadata before the request reaches your actual handler. For service-to-service authentication, mutual TLS is common where both client and server authenticate each other using certificates. You can also integrate with external auth systems - for example, using OAuth2 tokens or integrating with service meshes like Istio that handle authentication at the infrastructure level."],
-    },
-    {
-        text: "What are interceptors in gRPC?",
-        level: Level.enum["mid-advanced"],
-        category: Category.enum.backend,
-        tags: [ValidTag.enum.grpc],
-        answers: ["Interceptors in gRPC are basically middleware - they let you intercept and modify RPC calls before they reach the handler or before the response goes back to the client. They're incredibly useful for cross-cutting concerns. On the server side, you might use interceptors for authentication, logging, metrics collection, error handling, or request validation. On the client side, they're useful for adding authentication headers, implementing retry logic, or logging outgoing requests. The way they work is you chain interceptors together, and each one can inspect or modify the request, call the next interceptor in the chain, and then inspect or modify the response. For example, you might have a logging interceptor that records the start time, calls the next handler, and then logs the duration. You can have both unary interceptors for single request-response calls and streaming interceptors for handling streaming calls. The pattern is very similar to middleware in web frameworks like Express."],
-    },
-    {
-        text: "What is the difference between gRPC and JSON-RPC?",
-        level: Level.enum["mid-advanced"],
-        category: Category.enum.backend,
-        tags: [ValidTag.enum.grpc],
-        answers: ["While both are RPC frameworks, they're quite different in their approach. JSON-RPC is much simpler and lighter weight - it's just a specification for calling remote procedures using JSON over HTTP. You send a JSON object with a method name and parameters, and get back a JSON response. It's easy to debug since everything is human-readable JSON, and it works over regular HTTP/1.1. gRPC, on the other hand, is a full-featured RPC framework with binary serialization using Protocol Buffers, HTTP/2 transport, code generation from schema definitions, and built-in support for streaming. gRPC is generally much faster and more efficient, but it's also more complex to set up. JSON-RPC is great for simpler use cases or when you want something lightweight and easy to understand. gRPC shines when you need high performance, strong typing, streaming capabilities, or you're building a complex microservices architecture. Basically, JSON-RPC is simpler but less powerful, while gRPC is more sophisticated but comes with more overhead."],
     },
     {
         text: "How do you version gRPC APIs?",
@@ -153,13 +118,6 @@ export const midAdvanced: QuestionForCategoryAndLevel<
         category: Category.enum.backend,
         tags: [ValidTag.enum.pagination],
         answers: ["Cursor-based pagination uses an opaque cursor token that points to a specific position in your dataset, usually based on a unique identifier or timestamp. Instead of saying 'give me page 3', you say 'give me 20 items after this cursor'. The cursor is typically an encoded or hashed value that contains the ID or timestamp of the last item from the previous page. The big advantages are consistent performance regardless of how deep you paginate, and it handles real-time data changes gracefully - you won't see duplicates or skip items. You'd use cursor-based pagination for infinite scroll interfaces, real-time feeds like social media timelines, or any large dataset where offset pagination would be too slow. It's also the standard for most modern APIs. The main limitation is you can't jump to arbitrary pages - you can only go forward or backward from where you are, which is fine for most use cases but not great if you need traditional page numbers. Implementation-wise, you typically include next and previous cursor tokens in your API response, and the client includes the cursor in the next request."],
-    },
-    {
-        text: "What is keyset pagination?",
-        level: Level.enum["mid-advanced"],
-        category: Category.enum.backend,
-        tags: [ValidTag.enum.pagination],
-        answers: ["Keyset pagination, also called seek pagination, is a technique where you use the actual values of indexed columns as your pagination marker instead of an offset. For example, if you're paginating by created_at timestamp, instead of OFFSET 40, you'd query WHERE created_at > last_timestamp ORDER BY created_at LIMIT 20. The key is that you're using a WHERE clause on an indexed column rather than OFFSET, which allows the database to use the index to jump directly to the right position. This makes it extremely fast even for deep pagination. The advantages are similar to cursor-based pagination - consistent performance and no issues with skipping or duplicating items. The difference is that keyset pagination uses the actual column values rather than an opaque cursor, which can be simpler to implement and debug. The main requirement is that you need an indexed, unique, sequential column to paginate on - usually a combination of timestamp and ID. It also requires more complex queries if you're sorting by multiple columns. This is the most performant option for large datasets, but it requires careful index design."],
     },
     {
         text: "How do you implement infinite scroll?",

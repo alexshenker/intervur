@@ -89,15 +89,6 @@ export const mid: QuestionForCategoryAndLevel<
             "These are two different strategies for handling concurrent access to data. Pessimistic locking assumes conflicts will happen, so it locks the data when you read it, preventing others from modifying it until you're done. It's like checking out a book from a library - nobody else can take it while you have it. This guarantees you won't have conflicts, but it can reduce concurrency and lead to contention if many users are trying to access the same data. Optimistic locking assumes conflicts are rare, so it doesn't lock anything. Instead, it tracks a version number or timestamp. When you try to save your changes, it checks if the version has changed since you read it. If it has, someone else modified it, and your update is rejected. This allows much better concurrency since multiple people can read and work with the data simultaneously, but you have to handle the case where updates fail. Optimistic locking works well for low-conflict scenarios, while pessimistic locking is better when conflicts are common or when failing an update is costly."
         ],
     },
-    {
-        text: "What is a mutex vs semaphore?",
-        level: Level.enum.mid,
-        category: Category.enum["system-design"],
-        tags: [ValidTag.enum.concurrency],
-        answers: [
-            "A mutex and semaphore are both synchronization primitives, but they serve slightly different purposes. A mutex, or mutual exclusion lock, is binary - it's either locked or unlocked. Only one thread can hold the mutex at a time, and importantly, only the thread that locked it can unlock it. It's used to protect a critical section of code where you need exclusive access to a shared resource. A semaphore is a counter that can have values greater than one. It controls access to a resource pool with a limited number of instances. For example, if you have five database connections, you'd use a semaphore initialized to five. When a thread acquires the semaphore, it decrements the count. When it reaches zero, other threads have to wait. Any thread can signal a semaphore to increment it. A binary semaphore with a count of one is similar to a mutex but lacks the ownership concept. In practice, you use a mutex when you need exclusive access, and a semaphore when you're managing access to a limited pool of resources."
-        ],
-    },
     // Architecture/Design Patterns
     {
         text: "What is the repository pattern?",

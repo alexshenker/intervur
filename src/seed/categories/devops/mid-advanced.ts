@@ -174,21 +174,6 @@ export const midAdvanced: QuestionForCategoryAndLevel<
         ],
     },
 
-    // Advanced AWS
-    {
-        text: "What are EC2 placement groups?",
-        level: Level.enum["mid-advanced"],
-        category: Category.enum.devops,
-        tags: [ValidTag.enum.aws, ValidTag.enum.ec2],
-        answers: ["Placement groups control how EC2 instances are physically placed relative to each other. There are three types: cluster, partition, and spread. Cluster placement groups pack instances close together in a single availability zone to get low-latency, high-throughput network performance - great for HPC applications or tightly-coupled workloads. Spread placement groups do the opposite, placing instances on distinct hardware to minimize correlated failures - good for small critical instances that need to be isolated from each other. Partition placement groups divide instances into logical partitions where each partition is on separate hardware, useful for large distributed systems like Hadoop or Cassandra. In practice, I mostly use cluster groups when I need maximum network performance between instances, and spread groups for high-availability requirements."],
-    },
-    {
-        text: "What is Lambda@Edge?",
-        level: Level.enum["mid-advanced"],
-        category: Category.enum.devops,
-        tags: [ValidTag.enum.aws, ValidTag.enum.lambda],
-        answers: ["Lambda@Edge lets you run Lambda functions at CloudFront edge locations, executing code closer to users for lower latency. You can intercept requests and responses at four points: when the viewer request arrives at CloudFront, before CloudFront forwards to origin, when the origin response arrives, and before CloudFront returns to the viewer. Use cases include A/B testing by routing users to different origins, authentication at the edge, URL rewrites and redirects, modifying headers, generating responses directly without hitting origin, and personalizing content. Lambda@Edge has stricter limits than regular Lambda - less memory, shorter timeouts, and no VPC access. The functions must be deployed to us-east-1 and then replicate globally. I use Lambda@Edge for things like adding security headers, authentication checks, or simple transformations that benefit from running at the edge rather than at origin."],
-    },
     {
         text: "What is cross-account access?",
         level: Level.enum["mid-advanced"],

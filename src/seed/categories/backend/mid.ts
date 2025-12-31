@@ -90,14 +90,6 @@ export const mid: QuestionForCategoryAndLevel<
         tags: [ValidTag.enum.nodejs, ValidTag.enum["event-emitter"]],
         answers: ["The EventEmitter is a core pattern in Node.js for handling asynchronous events. It's basically a pub-sub system where objects can emit named events and listeners can subscribe to them. Most of Node.js core APIs use this pattern - streams, HTTP servers, and more all extend EventEmitter. You can create your own by extending the EventEmitter class. For example, you might emit a 'data' event when new data arrives and have multiple listeners react to it. I use this pattern when I need loose coupling between components or when one action needs to trigger multiple side effects. The key methods are on() or addListener() to subscribe, emit() to trigger events, and once() for one-time listeners. It's a powerful way to build event-driven architectures."],
     },
-    {
-        text: "What is libuv and how does it relate to Node.js?",
-        level: Level.enum.mid,
-        category: Category.enum.backend,
-        tags: [ValidTag.enum.nodejs, ValidTag.enum["event-loop"]],
-        answers: ["libuv is the C library that provides Node.js with the event loop and handles all the async I/O operations. It's what makes Node.js cross-platform, abstracting away the differences between Windows, Linux, and macOS. libuv manages the thread pool that handles file system operations and other blocking tasks that can't be done asynchronously at the OS level. When you do an async file read, libuv offloads that to the thread pool. It also handles TCP and UDP sockets, child processes, and timers. Understanding libuv helps you grasp why certain operations in Node.js are truly async while others are simulated async using the thread pool. It's the foundation that makes the whole non-blocking I/O model work."],
-    },
-
     // Express
     {
         text: "How do you handle errors in Express?",
@@ -151,13 +143,6 @@ export const mid: QuestionForCategoryAndLevel<
         answers: ["There are a few common approaches to API versioning. The most popular is URL versioning, like /api/v1/users and /api/v2/users. It's explicit and easy to understand. Another approach is using headers, either a custom version header or the Accept header with content negotiation. Some teams use query parameters like /api/users?version=2. I personally prefer URL versioning because it's the most visible and makes it easy to route to different implementations. The key is to have a versioning strategy from the start and maintain backward compatibility as long as possible. When you do introduce a new version, clearly document the changes and give clients plenty of time to migrate. I also try to avoid versioning too frequently - only for breaking changes, not new features."],
     },
     {
-        text: "What is HATEOAS and when is it useful?",
-        level: Level.enum.mid,
-        category: Category.enum.backend,
-        tags: [ValidTag.enum["rest-api"]],
-        answers: ["HATEOAS stands for Hypermedia as the Engine of Application State. It's a principle of REST where the server includes links to related resources in its responses, so clients can discover available actions dynamically rather than having URLs hardcoded. For example, a user resource might include links to update, delete, or view related resources. The idea is that the API becomes self-documenting and more flexible. Honestly, full HATEOAS is pretty rare in practice because it adds complexity and most modern APIs work fine with documentation and conventions. I've seen it used in enterprise systems where the API needs to be highly discoverable and evolvable. For most projects, including some basic links to related resources is a good middle ground without going full HATEOAS."],
-    },
-    {
         text: "How do you design error responses?",
         level: Level.enum.mid,
         category: Category.enum.backend,
@@ -191,13 +176,6 @@ export const mid: QuestionForCategoryAndLevel<
         category: Category.enum.backend,
         tags: [ValidTag.enum["rest-api"]],
         answers: ["For filtering, I use query parameters that map to the fields being filtered, like ?status=active&category=tech. For complex filters, I might support operators like ?price[gte]=100&price[lte]=500. Sorting typically uses a sort parameter with the field name, like ?sort=createdAt, and a minus sign for descending order, like ?sort=-createdAt. I validate all filter and sort parameters against a whitelist to prevent injection attacks and ensure users can only filter on indexed fields for performance. On the backend, I parse these parameters and build database queries safely. I'm careful to handle edge cases like invalid field names or malformed values. The API should return clear errors if someone tries to filter or sort on unsupported fields. This approach is intuitive and scales well."],
-    },
-    {
-        text: "What is content negotiation?",
-        level: Level.enum.mid,
-        category: Category.enum.backend,
-        tags: [ValidTag.enum["rest-api"]],
-        answers: ["Content negotiation is how clients and servers agree on the format of data being exchanged. The client uses the Accept header to specify what formats it can handle, like application/json or application/xml. The server responds with the appropriate format and sets the Content-Type header. In practice, most modern APIs just use JSON, but content negotiation is useful if you need to support multiple formats. For example, an API might return JSON for web clients and XML for legacy systems. You can also use it for versioning by having custom media types like application/vnd.myapi.v2+json. Express has built-in support with res.format(). While it's a nice REST principle, I find it's overkill for most APIs where JSON is the standard."],
     },
     {
         text: "What are ETags and conditional requests?",
@@ -322,13 +300,6 @@ export const mid: QuestionForCategoryAndLevel<
         answers: ["WebSocket authentication is trickier than HTTP because you can't easily send headers after the initial handshake. I typically authenticate during the handshake by passing a token as a query parameter or in the initial HTTP headers. Once connected, I verify the token and store the user identity with the connection. Some people send an authentication message immediately after connecting instead. For session-based auth, cookies work since they're sent with the handshake. I always validate tokens on the server and handle expired tokens by closing the connection. With Socket.io, I use middleware to authenticate during the handshake. It's important to re-validate periodically for long-lived connections and handle token refresh gracefully. The key is ensuring only authenticated users can establish and maintain connections."],
     },
     {
-        text: "What are rooms and namespaces in Socket.io?",
-        level: Level.enum.mid,
-        category: Category.enum.backend,
-        tags: [ValidTag.enum.websockets],
-        answers: ["Namespaces and rooms are Socket.io features for organizing connections. Namespaces are separate communication channels with their own event handlers, like different apps sharing the same Socket.io server. You might have /chat and /notifications namespaces. Clients connect to specific namespaces. Rooms are groups within a namespace that you can broadcast to. For example, in a chat app, each conversation might be a room. Sockets can join and leave rooms dynamically. When you emit to a room, only sockets in that room receive it. I use namespaces to separate different features or applications, and rooms to group related clients within a feature. For example, a multiplayer game might have a /game namespace with a room for each match. This makes it easy to send messages to specific groups without manually tracking connections."],
-    },
-    {
         text: "What is the difference between WebSockets and Server-Sent Events?",
         level: Level.enum.mid,
         category: Category.enum.backend,
@@ -342,14 +313,6 @@ export const mid: QuestionForCategoryAndLevel<
         tags: [ValidTag.enum.websockets],
         answers: ["Managing connection state is crucial for reliable WebSocket applications. On the client side, I implement automatic reconnection with exponential backoff - if the connection drops, wait a bit before retrying, and increase the wait time with each failed attempt. I track connection state (connecting, connected, disconnected) and show this to users. On the server, I clean up resources when connections close. For reliability, I often implement message acknowledgments so you know if messages were received. Socket.io handles a lot of this automatically. I also implement heartbeats to detect dead connections. When clients reconnect, they need to restore their state - rejoin rooms, resync data, etc. For message ordering, I sometimes add sequence numbers. The challenge is making reconnection seamless from a user perspective while handling all the edge cases on the technical side."],
     },
-    {
-        text: "What are heartbeats and ping/pong frames?",
-        level: Level.enum.mid,
-        category: Category.enum.backend,
-        tags: [ValidTag.enum.websockets],
-        answers: ["Heartbeats are a mechanism to keep connections alive and detect if they've died. The WebSocket protocol includes ping and pong frames for this purpose. One side sends a ping frame, and the other responds with a pong. If you don't get a pong back within a timeout, you know the connection is dead and can close it. This is important because connections can silently die due to network issues, and you might not know otherwise. TCP keepalive exists but operates at a lower level with longer timeouts. I typically implement application-level heartbeats every 30-60 seconds. On the server, if a client doesn't respond, I close the connection and clean up resources. This prevents zombie connections from accumulating. Many WebSocket libraries handle this automatically, but it's important to configure the intervals appropriately for your use case."],
-    },
-
     // NestJS
     {
         text: "What is NestJS and how does it differ from Express?",
@@ -485,13 +448,6 @@ export const mid: QuestionForCategoryAndLevel<
         category: Category.enum.backend,
         tags: [ValidTag.enum.serverless],
         answers: ["Serverless functions have execution time limits, so long-running tasks need different approaches. I break tasks into smaller chunks that can be chained together using queues or step functions. For example, AWS Step Functions orchestrate multiple Lambda functions into a workflow. I use queues to process items in batches asynchronously. For truly long tasks, I might trigger a serverless container or a traditional background job. Another approach is recursive function calls where a function processes part of the work and invokes itself with the remaining work. For data processing, I use stream processing to handle data incrementally. The key is designing tasks to be dividable and using orchestration services to coordinate the pieces. This actually makes tasks more resilient since each piece can retry independently."],
-    },
-    {
-        text: "What is the serverless framework?",
-        level: Level.enum.mid,
-        category: Category.enum.backend,
-        tags: [ValidTag.enum.serverless],
-        answers: ["The Serverless Framework is a popular tool for building and deploying serverless applications across different cloud providers. You define your functions, events, and resources in a serverless.yml file, and it handles deployment, packaging, and infrastructure provisioning. It supports AWS, Azure, Google Cloud, and others with a consistent interface. The framework includes plugins for extending functionality, local development tools, and environment management. I use it because it simplifies the deployment process and provides abstraction over cloud-specific details. Alternatives include AWS SAM, which is AWS-specific, or infrastructure-as-code tools like Terraform. The Serverless Framework is especially good for multi-cloud strategies and has a large ecosystem of plugins. It reduces the boilerplate of setting up serverless applications and makes deployments reproducible."],
     },
     {
         text: "How do you handle local development for serverless?",

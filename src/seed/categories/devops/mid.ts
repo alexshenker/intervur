@@ -79,13 +79,6 @@ export const mid: QuestionForCategoryAndLevel<
         answers: ["Auto-scaling automatically adjusts the number of EC2 instances based on demand. You create an auto-scaling group that defines the minimum, maximum, and desired number of instances, along with a launch template that specifies what kind of instances to create. Then you set up scaling policies that trigger based on CloudWatch metrics like CPU utilization or request count. For example, you might scale out when average CPU exceeds 70% and scale in when it drops below 30%. You can also use target tracking policies that maintain a specific metric at a target value, or scheduled scaling for predictable load patterns. The key is to configure health checks so unhealthy instances get replaced automatically, and to test your scaling policies to make sure they respond appropriately. Auto-scaling is essential for handling variable traffic while optimizing costs."],
     },
     {
-        text: "What are launch templates?",
-        level: Level.enum.mid,
-        category: Category.enum.devops,
-        tags: [ValidTag.enum.aws, ValidTag.enum.ec2],
-        answers: ["Launch templates are the modern way to specify instance configuration for EC2 instances and auto-scaling groups. They define all the parameters needed to launch an instance like the AMI, instance type, key pair, security groups, user data, and storage configuration. They're versioned, so you can have multiple versions and roll back if needed. The advantage over the older launch configurations is that templates are more flexible, support newer instance features, and can be used both for launching individual instances and with auto-scaling groups. I create launch templates with sensible defaults for my environment, and can override specific parameters when launching. They're also easier to manage in infrastructure as code compared to the deprecated launch configurations."],
-    },
-    {
         text: "How do you handle EC2 instance storage?",
         level: Level.enum.mid,
         category: Category.enum.devops,
@@ -142,13 +135,6 @@ export const mid: QuestionForCategoryAndLevel<
         category: Category.enum.devops,
         tags: [ValidTag.enum.aws, ValidTag.enum.s3],
         answers: ["Presigned URLs give temporary access to private S3 objects without requiring AWS credentials. You generate a URL using your credentials that includes an expiration time, and anyone with that URL can perform the specified action like downloading or uploading a file until it expires. This is really useful for giving users temporary access to files. For example, if users upload profile pictures to your app, you can store them in a private S3 bucket, then generate presigned URLs when users need to view them. Or for file downloads, you generate a presigned URL that expires in a few minutes. This way your bucket stays private and secure, but users can still interact with objects through your application. I typically set short expiration times, like 5-15 minutes, to minimize security risks if URLs get leaked."],
-    },
-    {
-        text: "What is S3 Transfer Acceleration?",
-        level: Level.enum.mid,
-        category: Category.enum.devops,
-        tags: [ValidTag.enum.aws, ValidTag.enum.s3],
-        answers: ["Transfer Acceleration speeds up uploads to S3 by routing data through CloudFront's edge locations. Instead of uploading directly to your bucket's region, data goes to the nearest edge location and then travels to S3 over AWS's optimized network paths. This can significantly reduce latency for uploads from geographically distant locations. You enable it on a bucket and then use a special endpoint for transfers. It's most beneficial when you're transferring large files or have users spread across the globe uploading data to a centralized bucket. The tradeoff is additional cost per GB transferred, so I only use it when the performance improvement justifies the cost, like for applications with global users uploading media files or when doing large data migrations from remote locations."],
     },
     {
         text: "How do you handle cross-region replication?",
@@ -260,13 +246,6 @@ export const mid: QuestionForCategoryAndLevel<
         answers: ["IAM conditions add context-based logic to policies, letting you allow or deny actions based on factors beyond just who and what. You use condition operators like StringEquals, IpAddress, or DateGreaterThan with condition keys like aws:SourceIp, aws:CurrentTime, or resource tags. For example, you can allow EC2 actions only from your office IP range, require MFA for sensitive operations, or allow deleting objects only if they have a specific tag. I use conditions to enforce security requirements like ensuring S3 uploads are encrypted, restricting actions to specific times or locations, or requiring encryption in transit. Conditions make policies more dynamic and secure. They're powerful but need to be tested carefully to avoid accidentally blocking legitimate access."],
     },
     {
-        text: "What are service-linked roles?",
-        level: Level.enum.mid,
-        category: Category.enum.devops,
-        tags: [ValidTag.enum.aws, ValidTag.enum.iam],
-        answers: ["Service-linked roles are predefined IAM roles that give AWS services the permissions they need to perform actions on your behalf. They're created and managed by AWS services automatically. For example, Auto Scaling creates a service-linked role to launch and terminate EC2 instances, or ECS creates one to manage tasks and services. The permissions are defined by AWS and you can't modify them, which ensures the service has exactly what it needs without giving excess permissions. These roles are created automatically when you use a service, or you can create them manually if needed. You can't delete them while the service is using them. Service-linked roles simplify setup since you don't have to figure out what permissions a service needs - AWS handles that. They're part of the security best practice of least privilege at the service level."],
-    },
-    {
         text: "What is the difference between identity-based and resource-based policies?",
         level: Level.enum.mid,
         category: Category.enum.devops,
@@ -311,13 +290,6 @@ export const mid: QuestionForCategoryAndLevel<
         answers: ["RDS provides automated backups and manual snapshots. Automated backups happen daily during a backup window you specify, and RDS also captures transaction logs throughout the day. This lets you restore to any point in time within your retention period, which can be 1 to 35 days. The backup process uses the standby instance in Multi-AZ deployments to avoid I/O impact. Manual snapshots are user-initiated and you keep them until you explicitly delete them - useful before major changes or for long-term retention. To restore, you create a new RDS instance from a snapshot or to a specific point in time. You can't restore over an existing instance. I typically set a 7-day retention for automated backups, take manual snapshots before major migrations, and copy critical snapshots to another region for disaster recovery. Backups are stored in S3 but managed by RDS."],
     },
     {
-        text: "What is RDS Performance Insights?",
-        level: Level.enum.mid,
-        category: Category.enum.devops,
-        tags: [ValidTag.enum.aws, ValidTag.enum.rds, ValidTag.enum.performance],
-        answers: ["Performance Insights is a monitoring tool that helps you analyze and troubleshoot database performance. It provides a dashboard showing database load over time and breaks down where that load is coming from - which SQL queries, users, or hosts are consuming resources. You can identify slow queries, see wait events that indicate bottlenecks, and drill into specific time periods to understand performance issues. It collects and displays up to two years of performance data. The key feature is the ability to quickly identify the top SQL queries causing load, then examine their execution plans and statistics. I enable Performance Insights on production databases to proactively monitor performance and quickly troubleshoot when issues arise. It's particularly useful during incidents to identify whether a performance problem is due to a problematic query, resource constraint, or external factor."],
-    },
-    {
         text: "How do you scale RDS?",
         level: Level.enum.mid,
         category: Category.enum.devops,
@@ -355,34 +327,12 @@ export const mid: QuestionForCategoryAndLevel<
         answers: ["The standard flow starts when a user signs up or signs in through your app. For sign-up, the user provides credentials and Cognito creates the account, optionally sending verification codes via email or SMS. For sign-in, Cognito validates the credentials and returns JWT tokens - an ID token with user attributes, an access token for authorizing API calls, and a refresh token for getting new tokens. Your app includes the ID or access token in requests to your backend, which validates the token signature to confirm it's legitimate. If you're using identity pools, you exchange the user pool token for temporary AWS credentials. The tokens expire after a set time, and you use the refresh token to get new ones without making the user log in again. The flow handles challenges like MFA or password changes as part of the authentication process."],
     },
     {
-        text: "What are Cognito triggers?",
-        level: Level.enum.mid,
-        category: Category.enum.devops,
-        tags: [ValidTag.enum.aws, ValidTag.enum.cognito],
-        answers: ["Cognito triggers are Lambda functions that run at specific points in the authentication flow, letting you customize behavior. There are pre-authentication triggers that run before sign-in to add custom validation, pre-sign-up triggers to validate or modify user data before account creation, custom message triggers to customize emails and SMS, post-confirmation triggers after verification, and pre-token-generation triggers to modify claims in the JWT. For example, I've used pre-sign-up triggers to enforce custom username policies, custom message triggers to send branded emails, and pre-token-generation to add custom claims like user roles to the token. Triggers give you flexibility to integrate with existing systems, add custom validation, or enrich the user data. They're synchronous, so they need to respond quickly."],
-    },
-    {
         text: "How do you implement social login with Cognito?",
         level: Level.enum.mid,
         category: Category.enum.devops,
         tags: [ValidTag.enum.aws, ValidTag.enum.cognito, ValidTag.enum.oauth],
         answers: ["To implement social login, you configure identity providers in your Cognito user pool by registering your app with providers like Google, Facebook, or Amazon and getting OAuth credentials. You add these credentials to Cognito and specify which attributes to map from the provider to your user pool. When users choose social login, they're redirected to the provider's login page, authenticate there, and get redirected back to your app with tokens. Cognito creates or updates the user in the pool and issues its own tokens. The user can then log in with either their social account or a password if you've enabled both. I typically enable multiple social providers to give users options, and use attribute mapping to ensure consistent user data regardless of how they sign in. Cognito handles the OAuth flow complexity automatically."],
     },
-    {
-        text: "What is Cognito hosted UI?",
-        level: Level.enum.mid,
-        category: Category.enum.devops,
-        tags: [ValidTag.enum.aws, ValidTag.enum.cognito],
-        answers: ["Cognito hosted UI is a pre-built, customizable login page that AWS hosts for you. Instead of building your own sign-in and sign-up forms, you can redirect users to the hosted UI and Cognito handles the interface. It supports all authentication methods including username/password, social providers, and SAML, and includes pages for sign-in, sign-up, forgot password, and MFA. You can customize the logo, CSS, and some layout aspects to match your branding. After authentication, users are redirected back to your app with tokens. I use the hosted UI when I need to get authentication working quickly or when the built-in pages meet my needs. For more customization, you can build your own UI using the Cognito SDK, but the hosted UI is faster to set up and maintained by AWS."],
-    },
-    {
-        text: "How do you customize Cognito emails and SMS?",
-        level: Level.enum.mid,
-        category: Category.enum.devops,
-        tags: [ValidTag.enum.aws, ValidTag.enum.cognito],
-        answers: ["For basic customization, you can edit the message templates directly in the Cognito console, changing the text and including placeholders for dynamic values like the verification code. For more advanced customization like HTML emails or custom logic, you use a custom message Lambda trigger that receives the message parameters and returns your custom content. You can also use Amazon SES for email sending instead of Cognito's default sender to get better deliverability, custom from addresses, and email tracking. For SMS, you configure the SNS settings and can customize the message template. The Lambda trigger approach gives you full control - I've used it to send branded HTML emails, include user-specific content, or integrate with third-party email services. Just make sure the Lambda function is fast and handles the verification code securely."],
-    },
-
     // Other AWS
     {
         text: "What is CloudFront and how do you configure it?",
