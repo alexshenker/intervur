@@ -34,6 +34,18 @@ curl -LO https://huggingface.co/Xenova/bge-large-en-v1.5/resolve/main/onnx/model
 npm start
 ```
 
+## Scripts
+
+### Export questions list
+
+To view all available questions (without answers), run:
+
+```bash
+npm run export-questions
+```
+
+This creates `questionsSansAnswers.json` in the project root with all questions, their categories, levels, and tags.
+
 ## How it works
 
 - Questions are indexed on startup using semantic embeddings

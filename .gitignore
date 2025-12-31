@@ -101,3 +101,6 @@ drizzle/
 
 # Embedding models (too large for git, see README for setup)
 /models/
+
+# Exported questions list
+questionsSansAnswers.json
