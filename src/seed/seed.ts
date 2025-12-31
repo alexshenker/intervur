@@ -1,4 +1,4 @@
-import type { Category, Level } from "../db/constants";
+import type { Category, Level, ValidTag } from "../db/constants";
 import type { DatabaseExport, DbExportQuestion } from "../lib/types";
 import { algorithmsQuestions } from "./categories/algorithms";
 import { backendQuestions } from "./categories/backend";
@@ -28,14 +28,45 @@ export const questions: DatabaseExport["questions"] = [
     ),
 ];
 
+type QuestionSansAnswer = {
+    text: string;
+    level: Level;
+    category: Category;
+    tags: ValidTag[];
+};
+
+const filterQuestions = (
+    qs: QuestionSansAnswer[],
+    categories: Category[],
+    levels: Level[],
+    tags: ValidTag[]
+) => {
+    if (!categories.length && !levels.length && !tags.length) {
+        return qs;
+    }
+
+    return qs.filter((q) => {
+        const categoryMatch =
+            categories.length === 0 || categories.includes(q.category);
+        const levelMatch = levels.length === 0 || levels.includes(q.level);
+        const tagsMatch =
+            tags.length === 0 || tags.every((tag) => q.tags.includes(tag));
+
+        return categoryMatch && levelMatch && tagsMatch;
+    });
+};
+
 //This is for having something like AI choose and read questions without giving it too much context to read. Answers are omitted as they can be long and aren't needed for simply asking/listing questions.
-export const questionsSansAnswers = questions.map(
-    ({ text, level, category, tags }) => ({
+export const questionsSansAnswers = filterQuestions(
+    questions.map(({ text, level, category, tags }) => ({
         text,
         level,
         category,
         tags,
-    })
+    })),
+    [],
+    [],
+    []
 );
 
 const seed: DatabaseExport = {
