@@ -60,6 +60,9 @@ export const validTags = [
     "var-let-const",
     "strict-mode",
 
+    // Node.js Core
+    "statefulsets",
+
     // TypeScript
     "typescript",
     "generics",
@@ -410,6 +413,30 @@ export const validTags = [
     "communication",
     "problem-solving",
     "teamwork",
+
+    // Algorithms & Data Structures
+    "time-complexity",
+    "space-complexity",
+    "big-o",
+    "data-structures",
+    "hash-tables",
+    "arrays",
+    "linked-lists",
+    "stacks",
+    "queues",
+    "trees",
+    "binary-trees",
+    "binary-search-trees",
+    "heaps",
+    "tries",
+    "graphs",
+    "sorting",
+    "quicksort",
+    "mergesort",
+    "heapsort",
+    "searching",
+    "binary-search",
+    "recursion",
 ] as const;
 
 export const ValidTag = z.enum(validTags);

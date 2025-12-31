@@ -28,6 +28,16 @@ export const questions: DatabaseExport["questions"] = [
     ),
 ];
 
+//This is for having something like AI choose and read questions without giving it too much context to read. Answers are omitted as they can be long and aren't needed for simply asking/listing questions.
+export const questionsSansAnswers = questions.map(
+    ({ text, level, category, tags }) => ({
+        text,
+        level,
+        category,
+        tags,
+    })
+);
+
 const seed: DatabaseExport = {
     questions,
 };
