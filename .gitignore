@@ -99,5 +99,5 @@ intervur.db-shm
 # Drizzle migrations
 drizzle/
 
-# Seed data
-#src/seed/
+# Embedding models (too large for git, see README for setup)
+/models/
