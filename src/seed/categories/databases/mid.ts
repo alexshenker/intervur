@@ -7,13 +7,6 @@ export const mid: QuestionForCategoryAndLevel<
 >[] = [
     // Database General
     {
-        text: "What database would you use and why? How do you decide?",
-        level: Level.enum.mid,
-        category: Category.enum.databases,
-        tags: [ValidTag.enum["database-design"]],
-        answers: ["It really depends on the specific requirements of the project. For most traditional web applications with structured data and complex relationships, I'd lean toward a relational database like PostgreSQL. It gives you strong consistency, ACID transactions, and powerful query capabilities. If I'm dealing with highly flexible or rapidly evolving schemas, or need to scale horizontally across many servers, then something like MongoDB makes more sense. For caching or real-time features, I'd add Redis. The key factors I consider are data structure complexity, consistency requirements, read versus write patterns, scale expectations, and the team's familiarity with the technology. I also think about operational complexity - sometimes the simpler choice that the team knows well is better than the theoretically optimal one."],
-    },
-    {
         text: "What is the difference between SQL and NoSQL databases?",
         level: Level.enum.mid,
         category: Category.enum.databases,
@@ -161,13 +154,6 @@ export const mid: QuestionForCategoryAndLevel<
         category: Category.enum.databases,
         tags: [ValidTag.enum.sql],
         answers: ["Window functions perform calculations across a set of rows related to the current row, without collapsing them into a single result like GROUP BY does. You define a window with OVER, optionally partitioning and ordering the data. Common examples are ROW_NUMBER for ranking, LAG and LEAD for accessing previous or next rows, and aggregate functions like SUM or AVG over a window. For instance, you can calculate running totals, rank items within categories, or compare each row to an average without losing the individual rows. They're incredibly powerful for analytics and reporting. I use them frequently for leaderboards, time-series analysis, and any scenario where I need aggregates while maintaining row-level detail."],
-    },
-    {
-        text: "What is the difference between WHERE and HAVING?",
-        level: Level.enum.mid,
-        category: Category.enum.databases,
-        tags: [ValidTag.enum.sql],
-        answers: ["WHERE filters rows before grouping occurs, while HAVING filters groups after aggregation. WHERE operates on individual rows and can't use aggregate functions, while HAVING operates on grouped results and typically uses aggregate functions. For example, WHERE filters which orders to include before counting them, while HAVING filters which counts to show after grouping. You'd use WHERE to filter to orders from a specific date range, then GROUP BY customer, then use HAVING to show only customers with more than 10 orders. The order of execution is WHERE, GROUP BY, then HAVING. Understanding this distinction is fundamental to writing correct aggregation queries."],
     },
     {
         text: "What are constraints and what types are there?",
@@ -440,13 +426,6 @@ export const mid: QuestionForCategoryAndLevel<
         category: Category.enum.databases,
         tags: [ValidTag.enum.supabase],
         answers: ["Supabase database functions are PostgreSQL functions written in SQL or PL/pgSQL that run directly in the database. You define them in your migrations or through the SQL editor. They can perform complex queries, data transformations, or business logic at the database level. You call them from your application using the Supabase client's RPC method. They're more performant than edge functions for data-heavy operations because they run where the data lives. They can also be used in triggers to respond to database events automatically. I use database functions for complex queries that would be cumbersome to express with the query builder, aggregations, or operations that need to be atomic and performant. They're traditional stored procedures but accessible through Supabase's modern API."],
-    },
-    {
-        text: "If you use Supabase, at what point would you switch to something else, what would it be, and why?",
-        level: Level.enum.mid,
-        category: Category.enum.databases,
-        tags: [ValidTag.enum.supabase],
-        answers: ["I'd consider switching from Supabase if the application needs massive scale beyond what PostgreSQL can handle efficiently, requires multi-region active-active writes, or has extremely specific performance requirements that need custom infrastructure. At that point, I might move to a custom setup with separate services - maybe a managed Postgres like RDS or Cloud SQL, a dedicated auth service like Auth0, Redis for caching, and a CDN for assets. The switch would likely be to a microservices architecture with specialized tools for each concern. However, Supabase scales pretty far, and the operational complexity of managing separate services is significant. Most applications never reach the scale where Supabase becomes a bottleneck. The decision would be driven by concrete metrics showing Supabase can't meet requirements, not premature optimization."],
     },
     {
         text: "How do you handle migrations in Supabase?",

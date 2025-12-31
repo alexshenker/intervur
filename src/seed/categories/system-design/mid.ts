@@ -98,16 +98,6 @@ export const mid: QuestionForCategoryAndLevel<
             "A mutex and semaphore are both synchronization primitives, but they serve slightly different purposes. A mutex, or mutual exclusion lock, is binary - it's either locked or unlocked. Only one thread can hold the mutex at a time, and importantly, only the thread that locked it can unlock it. It's used to protect a critical section of code where you need exclusive access to a shared resource. A semaphore is a counter that can have values greater than one. It controls access to a resource pool with a limited number of instances. For example, if you have five database connections, you'd use a semaphore initialized to five. When a thread acquires the semaphore, it decrements the count. When it reaches zero, other threads have to wait. Any thread can signal a semaphore to increment it. A binary semaphore with a count of one is similar to a mutex but lacks the ownership concept. In practice, you use a mutex when you need exclusive access, and a semaphore when you're managing access to a limited pool of resources."
         ],
     },
-    {
-        text: "What are Web Workers and when would you use them?",
-        level: Level.enum.mid,
-        category: Category.enum["system-design"],
-        tags: [ValidTag.enum.concurrency, ValidTag.enum.javascript, ValidTag.enum["web-workers"]],
-        answers: [
-            "Web Workers are a browser API that lets you run JavaScript in background threads, separate from the main UI thread. They enable true parallelism in JavaScript, which is normally single-threaded. Workers communicate with the main thread through message passing - you send data with postMessage and listen for messages with onmessage handlers. The key limitation is that workers don't have access to the DOM or many browser APIs. You'd use Web Workers for CPU-intensive tasks that would otherwise block the UI and make your page unresponsive - things like image processing, complex calculations, large data parsing, or cryptographic operations. For example, if you're building a spreadsheet application and need to recalculate thousands of formulas, doing that on the main thread would freeze the UI. Moving it to a worker keeps the interface responsive. The tradeoff is the overhead of serializing data to send between threads, so it's not worth it for quick operations. They're most valuable when you have genuinely heavy computation that takes hundreds of milliseconds or more."
-        ],
-    },
-
     // Architecture/Design Patterns
     {
         text: "What is the repository pattern?",

@@ -35,13 +35,6 @@ export const juniorAdvanced: QuestionForCategoryAndLevel<
         answers: ["A good test should be reliable, fast, and easy to understand. It should test one thing at a time so when it fails, you immediately know what broke. Good tests are independent - they don't rely on other tests running first or share state. They should be deterministic, giving the same result every time, not flaky with random failures. Speed matters too - slow tests don't get run frequently. A good test also resembles how the code is actually used in production rather than testing implementation details. The test should have clear, descriptive names that explain what scenario is being tested. And importantly, when a good test fails, it should give you enough information to understand why without having to dig through the code. I also think good tests serve as documentation - a new developer should be able to read your tests and understand how the system behaves."],
     },
     {
-        text: "How do you test async code?",
-        level: Level.enum["junior-advanced"],
-        category: Category.enum.fullstack,
-        tags: [ValidTag.enum.testing],
-        answers: ["Testing async code requires making sure your test waits for asynchronous operations to complete before making assertions. In modern JavaScript, the cleanest approach is using async/await in your test functions. For example, you mark your test as async and await the promise before asserting. Most testing frameworks like Jest support this natively. You can also use callbacks or return promises directly. For React components with async behavior, I use tools like React Testing Library's waitFor or findBy queries, which automatically wait for elements to appear. The key is avoiding race conditions where your test checks something before it's ready. I also make sure to test both success and failure cases - what happens when a promise resolves and when it rejects. And don't forget to handle timeouts appropriately so slow tests don't hang forever."],
-    },
-    {
         text: "What is mocking and when should you avoid it?",
         level: Level.enum["junior-advanced"],
         category: Category.enum.fullstack,

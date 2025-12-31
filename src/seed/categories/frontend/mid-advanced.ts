@@ -125,13 +125,6 @@ export const midAdvanced: QuestionForCategoryAndLevel<
 
     // React Hooks Advanced
     {
-        text: "What's the difference between useCallback and useMemo? When would you use each?",
-        level: Level.enum["mid-advanced"],
-        category: Category.enum.frontend,
-        tags: [ValidTag.enum.react, ValidTag.enum.hooks, ValidTag.enum.performance, ValidTag.enum.memoization, ValidTag.enum.useCallback, ValidTag.enum.useMemo],
-        answers: ["Both are memoization hooks, but useCallback memoizes a function itself while useMemo memoizes the result of calling a function. useCallback returns the same function reference between renders unless dependencies change, which is useful for preventing child components from re-rendering when you pass callbacks as props. useMemo caches the computed value and only recalculates when dependencies change, which is useful for expensive calculations. A common mistake is overusing these - you should only use useCallback when passing functions to memoized child components or when the function is used as a dependency in other hooks. useMemo is good for expensive computations like filtering or sorting large arrays. The performance cost of the memoization itself can outweigh the benefits if you're not careful, so I only reach for them when I've identified an actual performance issue."],
-    },
-    {
         text: "What is useImperativeHandle and when is it appropriate?",
         level: Level.enum["mid-advanced"],
         category: Category.enum.frontend,
@@ -709,14 +702,6 @@ export const midAdvanced: QuestionForCategoryAndLevel<
         tags: [ValidTag.enum.performance],
         answers: ["Render blocking happens when resources prevent the browser from displaying content. CSS is render-blocking by default because the browser needs styles before painting. JavaScript blocks HTML parsing unless it's async or defer. Large synchronous scripts in the head are the worst offenders. To avoid: load critical CSS inline or as high priority, defer non-critical CSS with media queries or rel=\"preload\", use async or defer on scripts, split code to only load what's needed, move scripts to the end of body. For CSS, extract critical above-the-fold styles and inline them, lazy-load the rest. Next.js and modern frameworks handle a lot of this automatically with code splitting and optimized loading. Font loading can also block - use font-display: swap to show fallback fonts immediately. The goal is getting content visible as fast as possible, even if not fully styled or interactive. Lighthouse flags render-blocking resources and suggests optimizations."],
     },
-    {
-        text: "What is the critical rendering path?",
-        level: Level.enum["mid-advanced"],
-        category: Category.enum.frontend,
-        tags: [ValidTag.enum.performance],
-        answers: ["The critical rendering path is the sequence of steps the browser takes to convert HTML, CSS, and JavaScript into pixels on screen. The steps are: parse HTML into DOM, parse CSS into CSSOM, combine DOM and CSSOM into render tree, calculate layout (where everything goes), and paint pixels. JavaScript can block this process - when the browser hits a script tag, it stops parsing HTML to execute the script. CSS blocks JavaScript execution because scripts might query styles. This means CSS indirectly blocks HTML parsing. Optimizing the critical path means minimizing render-blocking resources, deferring non-critical resources, reducing file sizes, and minimizing critical CSS. I inline critical CSS, defer non-critical CSS, async or defer JavaScript, and minimize the number of critical resources. Understanding this helps explain why putting scripts in the head slows page load, or why large CSS files delay rendering even if images are optimized."],
-    },
-
     // Bundle Sizing
     {
         text: "How would you debug large bundle sizes?",

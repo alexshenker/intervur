@@ -292,14 +292,6 @@ export const mid: QuestionForCategoryAndLevel<
         tags: [ValidTag.enum.graphql],
         answers: ["In GraphQL, output types are what you return from queries and mutations - things like object types, unions, and interfaces. Input types are what you pass as arguments to fields and mutations. They're defined with the input keyword and can only contain scalars, enums, and other input types - not object types. This separation exists because inputs and outputs serve different purposes and have different validation needs. For mutations, I create input types for complex arguments instead of having many scalar parameters. For example, CreateUserInput with name, email, and password fields. This makes mutations cleaner and easier to evolve. The naming convention is usually to suffix input types with Input. You can't use the same type for both input and output, which sometimes means duplicating similar structures."],
     },
-    {
-        text: "How do you implement pagination in GraphQL?",
-        level: Level.enum.mid,
-        category: Category.enum.backend,
-        tags: [ValidTag.enum.graphql, ValidTag.enum.pagination],
-        answers: ["GraphQL has a standard pagination pattern called Relay cursor-based pagination. It uses a connection pattern with edges and nodes. Each edge has a cursor and the node, plus there's a pageInfo object with hasNextPage, hasPreviousPage, and start/end cursors. Clients pass first/after for forward pagination or last/before for backward pagination. This is more complex than simple offset pagination but handles edge cases better and is more performant. For simpler use cases, I sometimes just use offset and limit arguments, especially for internal APIs where the Relay pattern would be overkill. The connection pattern is great for infinite scrolling and bidirectional pagination. I implement it by encoding cursors from unique identifiers like IDs or timestamps, and using those for database queries."],
-    },
-
     // WebSockets
     {
         text: "What are WebSockets and how do they differ from HTTP?",

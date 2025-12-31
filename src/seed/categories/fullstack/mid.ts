@@ -5,15 +5,6 @@ export const mid: QuestionForCategoryAndLevel<
     typeof Category.enum.fullstack,
     typeof Level.enum.mid
 >[] = [
-    // Debugging
-    {
-        text: "What are some debugging tools you use?",
-        level: Level.enum.mid,
-        category: Category.enum.fullstack,
-        tags: [ValidTag.enum.debugging],
-        answers: ["I use a combination of tools depending on the context. For frontend work, Chrome DevTools is my go-to - especially the debugger with breakpoints, the network tab for API calls, and the React DevTools extension for component hierarchies. On the backend, I rely on the Node.js debugger, either through VS Code's built-in debugger or using the inspector protocol. I also use logging strategically with structured logging libraries like Winston or Pino. For database issues, I'll use query logging and tools like pgAdmin or MongoDB Compass. And honestly, sometimes good old console.log or debugger statements are the fastest way to track down an issue, especially in unfamiliar codebases."],
-    },
-
     // Jest - Core Mid-Level
     {
         text: "How do you test async code in Jest?",
