@@ -161,7 +161,7 @@ export function FilterModal({
                     )}
                 </Button>
             </DialogTrigger>
-            <DialogContent className="max-h-[85vh] flex flex-col">
+            <DialogContent className="max-h-[85vh] flex flex-col" aria-describedby={undefined}>
                 <DialogHeader>
                     <DialogTitle>Filter Questions</DialogTitle>
                 </DialogHeader>

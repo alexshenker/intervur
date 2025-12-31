@@ -1,6 +1,7 @@
 import { InitProgress, searchService } from "@/lib/search";
 import { HomePage } from "@/pages/HomePage";
 import { QuestionsPage } from "@/pages/QuestionsPage";
+import { PracticePage } from "@/pages/PracticePage";
 import { Layout } from "@/components/Layout";
 import { questions } from "@/seed/seed";
 import { useEffect, useState } from "react";
@@ -60,6 +61,7 @@ const App = () => {
                 <Routes>
                     <Route path="/" element={<HomePage />} />
                     <Route path="/questions" element={<QuestionsPage />} />
+                    <Route path="/practice" element={<PracticePage />} />
                 </Routes>
             </Layout>
         </HashRouter>

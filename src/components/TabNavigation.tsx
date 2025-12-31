@@ -1,10 +1,11 @@
 import { NavLink } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { Home, List } from "lucide-react";
+import { Home, List, Shuffle } from "lucide-react";
 
 const tabs = [
     { to: "/", label: "Home", icon: Home },
     { to: "/questions", label: "Questions", icon: List },
+    { to: "/practice", label: "Practice", icon: Shuffle },
 ] as const;
 
 export function TabNavigation() {

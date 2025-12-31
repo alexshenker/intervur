@@ -1,18 +1,21 @@
 import { useState, useMemo } from "react";
 import type { DbExportQuestion } from "@/lib/types";
 import { Button } from "@/components/ui/button";
+import { Eye } from "lucide-react";
 
 interface QuestionCardProps {
     question: DbExportQuestion;
+    hideAnswerByDefault?: boolean;
 }
 
-export function QuestionCard({ question }: QuestionCardProps) {
+export function QuestionCard({ question, hideAnswerByDefault = false }: QuestionCardProps) {
     const initialIndex = useMemo(
         () => Math.floor(Math.random() * question.answers.length),
         [question.answers.length]
     );
 
     const [answerIndex, setAnswerIndex] = useState(initialIndex);
+    const [isAnswerHidden, setIsAnswerHidden] = useState(hideAnswerByDefault);
 
     const nextAnswer = () => {
         setAnswerIndex((prev) => (prev + 1) % question.answers.length);
@@ -54,11 +57,13 @@ export function QuestionCard({ question }: QuestionCardProps) {
                     <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
                         Answer
                     </span>
-                    {hasMultipleAnswers && (
-                        <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2">
+                        {hasMultipleAnswers && !isAnswerHidden && (
                             <span className="text-xs text-muted-foreground">
                                 {answerIndex + 1}/{question.answers.length}
                             </span>
+                        )}
+                        {hasMultipleAnswers && !isAnswerHidden && (
                             <Button
                                 variant="ghost"
                                 size="sm"
@@ -67,12 +72,22 @@ export function QuestionCard({ question }: QuestionCardProps) {
                             >
                                 Next →
                             </Button>
-                        </div>
-                    )}
+                        )}
+                    </div>
                 </div>
-                <p className="text-sm text-foreground whitespace-pre-wrap">
-                    {currentAnswer}
-                </p>
+                {isAnswerHidden ? (
+                    <button
+                        onClick={() => setIsAnswerHidden(false)}
+                        className="w-full py-4 rounded-md bg-muted/50 hover:bg-muted transition-colors flex items-center justify-center gap-2 text-sm text-muted-foreground hover:text-foreground"
+                    >
+                        <Eye className="h-4 w-4" />
+                        Click to reveal answer
+                    </button>
+                ) : (
+                    <p className="text-sm text-foreground whitespace-pre-wrap">
+                        {currentAnswer}
+                    </p>
+                )}
             </div>
         </div>
     );
